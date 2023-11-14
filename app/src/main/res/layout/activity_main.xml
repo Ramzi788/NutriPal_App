@@ -1,18 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:background="@color/white">
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Header with user greeting -->
+        <LinearLayout
+            android:id="@+id/header1"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="#493DD9"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp"
+            >
+            <ImageView
+                android:id="@+id/streak_icon"
+                android:layout_width="43dp"
+                android:layout_height="45dp"
+                android:src="@drawable/streak_icon" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/settings_icon"
+                android:layout_width="43dp"
+                android:layout_height="45dp"
+                android:src="@drawable/settings_icon" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05" />
+
+            <ImageView
+                android:id="@+id/profile_icon"
+                android:layout_width="43dp"
+                android:layout_height="45dp"
+                android:src="@drawable/profile_icon" />
+
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#493DD9"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        >
+
+
+        <!-- User greeting -->
+        <TextView
+            android:id="@+id/welcomeTextView"
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="10sp"
+            android:padding="5sp"
+            android:text="Welcome, \nRamzi Zeineddine!"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/handEmoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👋"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <!-- Settings and search icons -->
+        <!-- ... -->
+    </LinearLayout>
+    </LinearLayout>
+    <!-- The rest of the UI components such as the calorie counter, steps, recent scans, and BMI statistics -->
+    <!-- ... -->
+
+</RelativeLayout>
