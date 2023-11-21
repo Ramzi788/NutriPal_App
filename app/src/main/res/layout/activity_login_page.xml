@@ -40,16 +40,24 @@
         android:layout_marginBottom="16dp" />
 
     <!-- Password Input Field -->
-    <EditText
-        android:id="@+id/passwordEditText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:background="@drawable/rectangle"
-        android:padding="16dp"
+        app:passwordToggleEnabled="true"
         android:layout_marginBottom="32dp"
-        android:drawableRight="@drawable/show_pass"/>
+        app:hintEnabled="false">
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:autofillHints="name"
+            android:background="@drawable/rectangle"
+            android:padding="16dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Login Button -->
     <LinearLayout

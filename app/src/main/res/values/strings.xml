@@ -3,4 +3,5 @@
     <string name="bmi_value"><font color='#A6A6A6'>BMI:</font> <b>20.7</b></string>
     <string name="height_value"><font color='#A6A6A6'>Height:</font> <b>1.85 m</b></string>
     <string name="weight_value"><font color='#A6A6A6'>Weight:</font> <b>78 kg</b></string>
+    <string name="api_key">8d88921db42047f780df91d089df065a</string>
 </resources>
