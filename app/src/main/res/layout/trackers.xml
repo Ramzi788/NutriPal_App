@@ -1,0 +1,196 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_round"
+>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/background_round"
+    android:layout_margin="20dp"
+    android:padding="5dp">
+
+    <!-- Total Carbs Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/smallbox">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Total Carbs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textViewCarbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="350 / 600 g"
+                android:paddingLeft="8dp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarCarbs"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="600"
+            android:progress="350"
+            android:progressTint="@color/green"/>
+    </LinearLayout>
+
+    <!-- Total Protein Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/smallbox">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Total Protein"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textViewProtein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400 / 600 g"
+                android:paddingLeft="8dp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarProtein"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="600"
+            android:progress="400"
+            android:progressTint="@color/red"/>
+    </LinearLayout>
+
+    <!-- Total Fat Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/smallbox">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Total Fat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textViewFat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500 / 600 g"
+                android:paddingLeft="8dp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarFat"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="600"
+            android:progress="500"
+            android:progressTint="@color/purple"/>
+    </LinearLayout>
+
+    <!-- Total Fiber Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/smallbox">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Total Fiber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textViewFiber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="450 / 600 g"
+                android:paddingLeft="8dp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarFiber"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="600"
+            android:progress="450"
+            android:progressTint="@color/yellow"/>
+    </LinearLayout>
+
+    <!-- Water Consumed Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/smallbox">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Water Consumed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/textViewWater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="520 / 600 L"
+                android:paddingLeft="8dp" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarWater"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="600"
+            android:progress="520"
+            android:progressTint="@color/blue"/>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
