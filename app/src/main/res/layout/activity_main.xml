@@ -72,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="10sp"
                 android:padding="5sp"
-                android:text="Welcome, \nRamzi Zeineddine!"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -266,6 +265,12 @@
                     android:paddingBottom="20dp"
                     android:progress="60"
                     android:progressDrawable="@drawable/progressbar" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
 
 
             </LinearLayout>

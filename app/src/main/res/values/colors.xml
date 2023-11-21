@@ -16,4 +16,5 @@
     <color name="color_overweight">#FFB800</color>
     <color name="color_obese">#FF0000</color>
     <color name="text_color">#A6A6A6</color>
+    <color name="box_border">#B4B4B4</color>
 </resources>

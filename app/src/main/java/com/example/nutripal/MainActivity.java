@@ -13,6 +13,7 @@ import com.example.nutripal.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
  public class MainActivity extends AppCompatActivity {
+
      private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
              = new BottomNavigationView.OnNavigationItemSelectedListener() {
      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -36,10 +37,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 
+
+
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.main_navigation);
+
 
          BottomNavigationView navView = findViewById(R.id.bottom_navigation);
          navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
