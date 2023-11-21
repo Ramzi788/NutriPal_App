@@ -16,6 +16,16 @@ public class DiarySection extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.item_meal, container, false);
+        View view = inflater.inflate(R.layout.item_meal, container, false);
+        LinearLayout box =view.findViewById(R.id.add_meal);
+        box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), AddMeal.class);
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 }

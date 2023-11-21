@@ -72,21 +72,6 @@ public class Meal_Page extends Fragment {
         });
 
 
-            View view2 = inflater.inflate(R.layout.item_meal, container, false);
-            TextView text =view2.findViewById(R.id.addnewmeal);
-            text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), AddMeal.class);
-                        startActivity(intent);
-                }
-
-            });
-
-
-
-
-
         textViewDiary.setSelected(true);
 
         return view;
