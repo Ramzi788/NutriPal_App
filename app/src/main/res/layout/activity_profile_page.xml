@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <!-- Profile Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#6200EE">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/backToSettings"
+            android:src="@drawable/arrow_back"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:layout_marginStart="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <!-- Personal Details Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Personal Details"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:padding="8dp"
+        android:textColor="#6200EE" />
+
+    <!-- User Name -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="Username"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/editUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/textViewUserName"
+            android:text="Nouraholic"
+            android:textColor="#0000FF"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:gravity="right"
+            android:layout_alignParentEnd="true"
+            android:inputType="text"
+            android:hint="Enter username"
+            android:textColorHint="#000000"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+    <!-- Weight-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Weight"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/editWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewWeight"
+            android:gravity="right"
+            android:textColor="#0000FF"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:textColorHint="#000000"
+            android:hint="Enter height"
+            android:focusable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:inputType="none"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+    <!-- Height -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Height"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/editHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewHeight"
+            android:gravity="right"
+            android:textColor="#0000FF"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:textColorHint="#000000"
+            android:hint="Enter height"
+            android:focusable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:inputType="none"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+    <!-- Sex -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Sex"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/editSex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewSex"
+            android:text="Female"
+            android:gravity="right"
+            android:textColor="#0000FF"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:textColorHint="#000000"
+            android:hint="Select sex"
+            android:focusable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:inputType="none" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+    <!-- Date of Birth -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewDob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Date of Birth"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/editDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewDob"
+            android:gravity="right"
+            android:textColor="#0000FF"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:textColorHint="#000000"
+            android:hint="Select Date of Birth"
+            android:focusable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:inputType="none" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+    <!-- Location -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Location"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/editLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewLocation"
+            android:text="Lebanon"
+            android:gravity="right"
+            android:textColor="#0000FF"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_alignParentRight="true"
+            android:textColorHint="#000000"
+            android:hint="Select Location"
+            android:focusable="false"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:inputType="none" />
+    </RelativeLayout>
+
+</LinearLayout>

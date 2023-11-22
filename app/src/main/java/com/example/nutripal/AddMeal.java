@@ -1,10 +1,13 @@
 package com.example.nutripal;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -64,6 +67,7 @@ public class AddMeal extends AppCompatActivity {
         });
     }
 
+
     private void handleSuccessfulResponse(RecipeSearchResponse searchResponse) {
         List<Recipe> recipes = searchResponse.getResults();
         List<String> recipeTitles = new ArrayList<>();
@@ -75,11 +79,25 @@ public class AddMeal extends AppCompatActivity {
                 this, android.R.layout.simple_dropdown_item_1line, recipeTitles);
         textView.setAdapter(adapter);
         textView.showDropDown();
+        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) parent.getItemAtPosition(position);
+                Intent intent = new Intent(AddMeal.this, AddNewMeal.class);
+                intent.putExtra("SELECTED_RECIPE", selectedItem);
+                startActivity(intent);
+
+                textView.setText("");
+
+            }
+        });
     }
 
 
     private AutoCompleteTextView textView;
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -100,6 +118,25 @@ public class AddMeal extends AppCompatActivity {
             }
 
         });
+        textView.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2; // Index of the right drawable
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (textView.getRight() - textView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // Clear the text when the "X" icon is clicked
+                        textView.setText("");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+
 
 
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -110,4 +147,5 @@ public class AddMeal extends AppCompatActivity {
         });
 
     }
+
 }

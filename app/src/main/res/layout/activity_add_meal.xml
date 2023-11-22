@@ -218,6 +218,10 @@
         android:textSize="15sp"
         android:textStyle="bold"
         />
+    <ListView
+        android:id="@+id/historyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
 </RelativeLayout>

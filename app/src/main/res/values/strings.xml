@@ -4,4 +4,22 @@
     <string name="height_value"><font color='#A6A6A6'>Height:</font> <b>1.85 m</b></string>
     <string name="weight_value"><font color='#A6A6A6'>Weight:</font> <b>78 kg</b></string>
     <string name="api_key">8d88921db42047f780df91d089df065a</string>
+    <string-array name="serving_sizes">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="number_of_servings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="meal_types">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Snack</item>
+    </string-array>
 </resources>
