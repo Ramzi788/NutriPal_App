@@ -7,6 +7,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface FastAPIEndpoint {
-    @POST("register/")
+    @POST("/register/")
     Call<ResponseBody> registerUser(@Body User user);
 }

@@ -1,0 +1,126 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    android:background="@color/white"
+    >
+
+    <!-- ViewPager2 for swiping through pages -->
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:flipInterval="2000"
+        android:autoStart="true"
+        android:inAnimation="@android:anim/slide_in_left"
+        android:outAnimation="@android:anim/slide_out_right">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash1"/>
+    </ViewFlipper>
+
+    <!-- Dots indicator layout -->
+    <LinearLayout
+        android:id="@+id/dotsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Title Text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get the exact nutrition of everything you eat"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Subtitle Text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2600+ Ingredients, 5000+ Recipes and 600K+ Products for you to explore and add to your daily meals"
+            android:textSize="16sp"
+            android:textColor="#757575"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"/>
+        <!-- Login Button -->
+        <LinearLayout
+            android:id="@+id/loginButton"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:padding="10dp"
+            android:backgroundTint="#493DD9"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rectangle">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <!-- Sign up Button -->
+        <LinearLayout
+            android:id="@+id/registerButton"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rectangle">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/purple_blue"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

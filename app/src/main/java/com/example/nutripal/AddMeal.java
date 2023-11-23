@@ -39,6 +39,7 @@ import retrofit2.http.Query;
 
 
 public class AddMeal extends AppCompatActivity {
+    private List<Recipe> recipesList;
     private void sendApiRequest(String query) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
@@ -69,10 +70,10 @@ public class AddMeal extends AppCompatActivity {
 
 
     private void handleSuccessfulResponse(RecipeSearchResponse searchResponse) {
-        List<Recipe> recipes = searchResponse.getResults();
+        recipesList = searchResponse.getResults();
         List<String> recipeTitles = new ArrayList<>();
 
-        for (Recipe recipe : recipes) {
+        for (Recipe recipe : recipesList) {
             recipeTitles.add(recipe.getTitle());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -85,8 +86,10 @@ public class AddMeal extends AppCompatActivity {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 Intent intent = new Intent(AddMeal.this, AddNewMeal.class);
                 intent.putExtra("SELECTED_RECIPE", selectedItem);
+                String query = String.valueOf(textView.getText());
+                int itemId = getIdForQuery(query); // You need to implement this method
+                intent.putExtra("ItemId", itemId);
                 startActivity(intent);
-
                 textView.setText("");
 
             }
@@ -146,6 +149,15 @@ public class AddMeal extends AppCompatActivity {
             }
         });
 
+
+    }
+    private int getIdForQuery(String query) {
+        for (Recipe recipe : recipesList) {
+            if (recipe.getTitle().equalsIgnoreCase(query)) {
+                return recipe.getId();
+            }
+        }
+        return -1; // return an invalid ID or throw an exception if no match is found
     }
 
 }

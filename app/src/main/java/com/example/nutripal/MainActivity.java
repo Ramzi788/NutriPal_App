@@ -4,15 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import com.example.nutripal.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
  public class MainActivity extends AppCompatActivity {
+
 
      private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
              = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,11 +43,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
          return true;
      }
      };
-
-
-
-
-
      @Override
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -51,4 +55,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
          // Assuming you want to open the HomePage first
          getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomePage()).commit();
      }
-}
+
+
+ }

@@ -1,0 +1,111 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <!-- This is a spacer to push the TextView to the center -->
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_back" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/meal_summary_text_food_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Breakfast Summary"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/totalCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/calorie_count_food_summary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="312"
+            android:textSize="20sp"
+            android:textColor="@color/purple_blue"
+            android:layout_weight="1"
+            android:gravity="end"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/view_line"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mealsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/add_new_meal_food_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="#493DD9"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rectangle">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Meal to Summary"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+</LinearLayout>

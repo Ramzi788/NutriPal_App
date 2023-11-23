@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@id/breakfas"
+            android:id="@+id/breakfast_box"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,6 +49,7 @@
             </FrameLayout>
 
             <LinearLayout
+
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -80,7 +81,8 @@
 
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:id="@+id/lunch_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/roundedbox"
@@ -135,7 +137,8 @@
 
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:id="@+id/dinner_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -191,7 +194,8 @@
 
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:id="@+id/snacks_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
