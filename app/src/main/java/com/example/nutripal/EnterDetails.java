@@ -30,6 +30,7 @@ public class EnterDetails extends AppCompatActivity {
                 Intent intent = new Intent(EnterDetails.this, HomePage.class);
                 intent.putExtra("HEIGHT", R.id.heightInput);
                 intent.putExtra("WEIGHT", R.id.weightInput);
+                startActivity(intent);
             }
         });
         editText.setOnClickListener(new View.OnClickListener() {
