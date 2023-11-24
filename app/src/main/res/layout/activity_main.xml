@@ -238,7 +238,7 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
                     android:paddingRight="20dp"
-                    android:text="5,500"
+                    android:text=""
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textSize="25dp"
                     android:textStyle="bold" />

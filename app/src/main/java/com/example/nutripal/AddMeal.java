@@ -87,7 +87,7 @@ public class AddMeal extends AppCompatActivity {
                 Intent intent = new Intent(AddMeal.this, AddNewMeal.class);
                 intent.putExtra("SELECTED_RECIPE", selectedItem);
                 String query = String.valueOf(textView.getText());
-                int itemId = getIdForQuery(query); // You need to implement this method
+                int itemId = getIdForQuery(query);
                 intent.putExtra("ItemId", itemId);
                 startActivity(intent);
                 textView.setText("");

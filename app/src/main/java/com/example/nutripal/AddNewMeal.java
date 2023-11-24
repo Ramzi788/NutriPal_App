@@ -10,14 +10,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.nutripal.Models.FastAPIEndpoint;
+import com.example.nutripal.Models.Meal;
 import com.example.nutripal.Models.Nutrient;
 import com.example.nutripal.Models.NutrientSearchResponse;
+import com.example.nutripal.Models.NutritionResponse;
 import com.example.nutripal.Models.SpoonacularApi;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,10 +32,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddNewMeal extends AppCompatActivity {
-    private ImageView backArrow;
+    private ImageView backArrow, checkMark;
     private TextView caloriesView, carbsView, fatView, proteinView; // TextViews to display the nutrients
     private ProgressBar caloriesBar;
-
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private void sendApiRequest(int id) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -65,13 +72,50 @@ public class AddNewMeal extends AppCompatActivity {
         Nutrient protein = searchResponse.getProtein();
         caloriesBar = findViewById(R.id.progressBar_add_new_meal);
 
-        // Assuming you have TextViews in your layout to display these values
         caloriesView.setText(calories.getAmount() + "\n" + calories.getUnit());
         carbsView.setText(carbs.getAmount() + " " + carbs.getUnit());
         fatView.setText(fat.getAmount() + " " + fat.getUnit());
         proteinView.setText(protein.getAmount() + " " + protein.getUnit());
         caloriesBar.setProgress((int) calories.getAmount());
-    }
+
+        checkMark = findViewById(R.id.checkMark);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8000") // Replace with your server URL
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
+
+            checkMark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Meal newMeal = new Meal("Meal Name", (int )calories.getAmount(),(int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount());
+
+                    assert user != null;
+                    String userId = user.getUid();
+                    api.addMeal(userId, newMeal).enqueue(new Callback<ResponseBody>() {
+
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(AddNewMeal.this, "Meal added successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(AddNewMeal.this, "Error adding meal", Toast.LENGTH_SHORT).show();
+                        } });
+
+                }
+
+            });
+        }
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -30,6 +30,7 @@ public class EnterDetails extends AppCompatActivity {
                 Intent intent = new Intent(EnterDetails.this, HomePage.class);
                 intent.putExtra("HEIGHT", R.id.heightInput);
                 intent.putExtra("WEIGHT", R.id.weightInput);
+                intent.putExtra("CALORIE_GOAL", R.id.calorieGoal);
                 startActivity(intent);
             }
         });
