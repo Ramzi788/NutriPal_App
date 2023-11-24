@@ -89,27 +89,35 @@ public class AddNewMeal extends AppCompatActivity {
             checkMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Meal newMeal = new Meal("Meal Name", (int )calories.getAmount(),(int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount());
+                    Meal newMeal = new Meal("Meal Name", (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount());
 
-                    assert user != null;
-                    String userId = user.getUid();
-                    api.addMeal(userId, newMeal).enqueue(new Callback<ResponseBody>() {
+                    if (user != null) {
+                        String userId = user.getEmail();
+                        api.addMeal(userId, newMeal).enqueue(new Callback<ResponseBody>() {
 
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(AddNewMeal.this, "Meal added successfully", Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(AddNewMeal.this, userId, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddNewMeal.this, "Meal added successfully", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Toast.makeText(AddNewMeal.this, "Error adding meal", Toast.LENGTH_SHORT).show();
-                        } });
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Toast.makeText(AddNewMeal.this, "Error adding meal", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
+                    }
+                    else{
+                        Toast.makeText(AddNewMeal.this, "No User", Toast.LENGTH_SHORT).show();
+                    }
+                    finish();
                 }
 
             });
+
         }
 
 
