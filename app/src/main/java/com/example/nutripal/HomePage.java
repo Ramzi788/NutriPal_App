@@ -69,7 +69,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     private SensorManager sensorManager = null;
     private Sensor stepSensor;
     private int totalSteps = 0 , previewTotalSteps = 0;
-    private TextView stepsText, currentCalories, CalorieGoal;
+    private TextView stepsText, currentCalories, CalorieGoal, fullName;
     private ProgressBar stepsProgressBar, caloriesProgressBar;
     private int height, weight;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -132,7 +132,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -159,19 +159,18 @@ public class HomePage extends Fragment implements SensorEventListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
         ImageView logOutButton = view.findViewById(R.id.log_out);
+        CalorieGoal = view.findViewById(R.id.CalorieGoal);
         caloriesProgressBar = view.findViewById(R.id.progressBar_calories);
         stepsProgressBar= view.findViewById(R.id.progressBar_steps);
         stepsText = view.findViewById(R.id.stepsCounter);
         currentCalories = view.findViewById(R.id.currentCalories);
-        CalorieGoal = view.findViewById(R.id.CalorieGoal);
-        int maxCalories = Integer.parseInt(CalorieGoal.getText().toString());
-        caloriesProgressBar.setMax(maxCalories);
+        fullName = view.findViewById(R.id.welcomeTextView);
+        if (user!=null){
+            fetchUserData(user.getEmail());
+        }
+
         fetchNutritionalData();
-        //Setting the values of the progress bar
-        stepsProgressBar.setMax(10000);
-        stepsProgressBar.setProgress(0);
-        caloriesProgressBar.setMax(maxCalories);
-        caloriesProgressBar.setProgress(0);
+
 
         sensorManager = (SensorManager)requireActivity().getSystemService(Context.SENSOR_SERVICE);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -190,8 +189,28 @@ public class HomePage extends Fragment implements SensorEventListener {
         });
         return view;
     }
+    private void fetchUserData(String userEmail) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
+        api.getUserData(userEmail).enqueue(new Callback<UserData>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserData userData = response.body();
+                    CalorieGoal.setText(String.valueOf(userData.getCalorieGoal()));
+                    fullName.setText("Welcome, \n" + userData.getFirstName()+ " " + userData.getLastName());
+                }
+            }
 
-
-
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                // Handle network errors
+            }
+        });
+    }
 }
