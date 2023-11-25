@@ -5,13 +5,24 @@ public class Meal {
     int carbs;
     int fat;
     int protein;
+    int fiber;
+    String mealType;
 
-    public Meal(String name, int calories, int carbs, int fat, int protein) {
+    public int getFiber() {
+        return fiber;
+    }
+
+    public void setFiber(int fiber) {
+        this.fiber = fiber;
+    }
+
+    public Meal(String name, int calories, int carbs, int fat, int protein, int fiber) {
         this.name = name;
         this.calories = calories;
         this.carbs = carbs;
         this.fat = fat;
         this.protein = protein;
+        this.fiber = fiber;
     }
 
     public String getName() {

@@ -70,6 +70,7 @@ public class AddNewMeal extends AppCompatActivity {
         Nutrient carbs = searchResponse.getCarbs();
         Nutrient fat = searchResponse.getFat();
         Nutrient protein = searchResponse.getProtein();
+        Nutrient fiber = searchResponse.getFiber();
         caloriesBar = findViewById(R.id.progressBar_add_new_meal);
 
         caloriesView.setText(calories.getAmount() + "\n" + calories.getUnit());
@@ -89,16 +90,15 @@ public class AddNewMeal extends AppCompatActivity {
             checkMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Meal newMeal = new Meal("Meal Name", (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount());
+                    Meal newMeal = new Meal("Meal Name", (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount());
 
                     if (user != null) {
-                        String userId = user.getEmail();
-                        api.addMeal(userId, newMeal).enqueue(new Callback<ResponseBody>() {
+                        String userEmail = user.getEmail();
+                        api.addMeal(userEmail, newMeal).enqueue(new Callback<ResponseBody>() {
 
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 if (response.isSuccessful()) {
-                                    Toast.makeText(AddNewMeal.this, userId, Toast.LENGTH_SHORT).show();
                                     Toast.makeText(AddNewMeal.this, "Meal added successfully", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -122,15 +122,12 @@ public class AddNewMeal extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_meal);
 
-        // Initialize TextViews
+        //TextViews
         caloriesView = findViewById(R.id.calories_value);
         carbsView = findViewById(R.id.carbs_value);
         fatView = findViewById(R.id.fat_value);
@@ -142,9 +139,6 @@ public class AddNewMeal extends AppCompatActivity {
         int selectedId = intent.getIntExtra("ItemId",-1);
         TextView textView = findViewById(R.id.meal_item_name_add_new_meal);
         textView.setText(selectedRecipe);
-
-
-
 
         // Use sendApiRequest to make the API call
         sendApiRequest(selectedId);

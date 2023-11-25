@@ -129,9 +129,10 @@
 
 
                     <TextView
+                        android:id="@+id/CalorieGoal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2500"
+                        android:text="5500"
                         android:textStyle="bold"
                         android:textSize="24sp"
                         android:gravity="center"/>
@@ -153,9 +154,10 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/currentCalories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1300"
+                        android:text="0"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:gravity="center"/>
@@ -176,8 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressDrawable="@drawable/progressbar"
-                android:progress="60"
-                android:max="100"
+                android:progress="0"
                 android:layout_marginTop="16dp"/>
 
             <TextView

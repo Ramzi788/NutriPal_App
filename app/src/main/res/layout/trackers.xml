@@ -6,7 +6,6 @@
     android:background="@drawable/background_round"
 >
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -32,12 +31,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/textViewCarbs"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="350 / 600 g"
-                android:paddingLeft="8dp" />
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:text="0" />
         </LinearLayout>
 
         <ProgressBar
@@ -46,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="600"
-            android:progress="350"
             android:progressTint="@color/green"/>
     </LinearLayout>
 
@@ -72,7 +71,7 @@
                 android:id="@+id/textViewProtein"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="400 / 600 g"
+                android:text="0"
                 android:paddingLeft="8dp" />
         </LinearLayout>
 
@@ -82,7 +81,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="600"
-            android:progress="400"
             android:progressTint="@color/red"/>
     </LinearLayout>
 
@@ -108,7 +106,7 @@
                 android:id="@+id/textViewFat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="500 / 600 g"
+                android:text="0"
                 android:paddingLeft="8dp" />
         </LinearLayout>
 
@@ -118,7 +116,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="600"
-            android:progress="500"
             android:progressTint="@color/purple"/>
     </LinearLayout>
 
@@ -144,7 +141,7 @@
                 android:id="@+id/textViewFiber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="450 / 600 g"
+                android:text="0"
                 android:paddingLeft="8dp" />
         </LinearLayout>
 
@@ -154,7 +151,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="600"
-            android:progress="450"
+            android:progress="0"
             android:progressTint="@color/yellow"/>
     </LinearLayout>
 
@@ -179,7 +176,7 @@
                 android:id="@+id/textViewWater"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="520 / 600 L"
+                android:text="0"
                 android:paddingLeft="8dp" />
         </LinearLayout>
 

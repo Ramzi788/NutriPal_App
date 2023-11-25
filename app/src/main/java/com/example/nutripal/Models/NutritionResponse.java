@@ -5,12 +5,22 @@ public class NutritionResponse {
     int carbs;
     int fat;
     int protein;
+    int fiber;
 
-    public NutritionResponse(int calories, int carbs, int fat, int protein) {
+    public int getFiber() {
+        return fiber;
+    }
+
+    public void setFiber(int fiber) {
+        this.fiber = fiber;
+    }
+
+    public NutritionResponse(int calories, int carbs, int fat, int protein, int fiber) {
         this.calories = calories;
         this.carbs = carbs;
         this.fat = fat;
         this.protein = protein;
+        this.fiber = fiber;
     }
 
     public int getCalories() {

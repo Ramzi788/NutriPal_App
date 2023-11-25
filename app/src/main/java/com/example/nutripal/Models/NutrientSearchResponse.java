@@ -25,6 +25,10 @@ public class NutrientSearchResponse {
     public Nutrient getProtein() {
         return getSpecificNutrient("Protein");
     }
+    public Nutrient getFiber() {
+        return getSpecificNutrient("Fiber");
+    }
+
     private Nutrient getSpecificNutrient(String name) {
         for (Nutrient nutrient : nutrients) {
             if (nutrient.getName().equalsIgnoreCase(name)) {

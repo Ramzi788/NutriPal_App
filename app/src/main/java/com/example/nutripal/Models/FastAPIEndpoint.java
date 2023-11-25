@@ -12,9 +12,15 @@ public interface FastAPIEndpoint {
     @POST("/register/")
     Call<ResponseBody> registerUser(@Body User user);
 
-    @POST("/addmeal/{user_id}")
-    Call<ResponseBody> addMeal(@Path("user_id") String userId, @Body Meal meal);
+    @POST("/addmeal/{user_email}")
+    Call<ResponseBody> addMeal(@Path("user_email") String userId, @Body Meal meal);
 
-    @GET("/getmeals/{user_id}")
-    Call<NutritionResponse> getMeals(@Path("user_id") String userId);
+    @GET("/getmeals/{user_email}")
+    Call<NutritionResponse> getMeals(@Path("user_email") String userId);
+
+    @POST("/userdata/{user_email}")
+    Call<UserData> setUserData(@Path("user_email") String userId, @Body UserData user);
+
+    @GET("/userdata/{user_email}")
+    Call<UserData> getUserData(@Path("user_email") String userEmail);
 }
