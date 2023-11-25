@@ -69,7 +69,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     private SensorManager sensorManager = null;
     private Sensor stepSensor;
     private int totalSteps = 0 , previewTotalSteps = 0;
-    private TextView stepsText, currentCalories, CalorieGoal;
+    private TextView stepsText, currentCalories, CalorieGoal, fullName;
     private ProgressBar stepsProgressBar, caloriesProgressBar;
     private int height, weight;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -81,10 +81,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     public HomePage() {}
     public void onResume(){
         super.onResume();
-        if (stepSensor == null){
-            Toast.makeText(getActivity(),"This device has no sensor", Toast.LENGTH_SHORT).show();
-        }
-        else {
+
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_FASTEST);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String currentDate = sdf.format(new Date());
@@ -94,7 +91,6 @@ public class HomePage extends Fragment implements SensorEventListener {
                 // It's a new day, reset steps and store the new date
                 previewTotalSteps = totalSteps;
                 storeLastUpdateDate(currentDate);
-            }
         }
 
     }
@@ -124,7 +120,7 @@ public class HomePage extends Fragment implements SensorEventListener {
             int value = Integer.parseInt(currentCalories.getText().toString());
             value += calories;
             currentCalories.setText(Integer.toString(value));
-            caloriesProgressBar.setProgress(value);
+            caloriesProgressBar.setProgress(Integer.parseInt(currentCalories.getText().toString()));
             Toast.makeText(getActivity(),Integer.toString(caloriesProgressBar.getProgress()), Toast.LENGTH_SHORT).show();
         });
     }
@@ -153,6 +149,30 @@ public class HomePage extends Fragment implements SensorEventListener {
         });
 
     }
+    private void fetchUserData(String userEmail) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.104:8000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
+
+        api.getUserData(userEmail).enqueue(new Callback<UserData>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserData userData = response.body();
+                    CalorieGoal.setText(String.valueOf(userData.getCalorieGoal()));
+                    fullName.setText("Welcome, \n" + userData.getFirstName()+ " " + userData.getLastName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+                // Handle network errors
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,15 +183,21 @@ public class HomePage extends Fragment implements SensorEventListener {
         stepsProgressBar= view.findViewById(R.id.progressBar_steps);
         stepsText = view.findViewById(R.id.stepsCounter);
         currentCalories = view.findViewById(R.id.currentCalories);
+
+
+
+
         CalorieGoal = view.findViewById(R.id.CalorieGoal);
+        fullName = view.findViewById(R.id.welcomeTextView);
         int maxCalories = Integer.parseInt(CalorieGoal.getText().toString());
         caloriesProgressBar.setMax(maxCalories);
+        if (user!=null){
+            fetchUserData(user.getEmail());
+        }
         fetchNutritionalData();
         //Setting the values of the progress bar
         stepsProgressBar.setMax(10000);
         stepsProgressBar.setProgress(0);
-        caloriesProgressBar.setMax(maxCalories);
-        caloriesProgressBar.setProgress(0);
 
         sensorManager = (SensorManager)requireActivity().getSystemService(Context.SENSOR_SERVICE);
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);

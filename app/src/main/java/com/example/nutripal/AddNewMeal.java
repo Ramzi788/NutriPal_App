@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddNewMeal extends AppCompatActivity {
     private ImageView backArrow, checkMark;
-    private TextView caloriesView, carbsView, fatView, proteinView; // TextViews to display the nutrients
+    private TextView caloriesView, carbsView, fatView, proteinView, textView ; // TextViews to display the nutrients
     private ProgressBar caloriesBar;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -95,7 +95,7 @@ public class AddNewMeal extends AppCompatActivity {
             checkMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Meal newMeal = new Meal("Meal Name", (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount(), currentDay, currentMonth, currentYear);
+                    Meal newMeal = new Meal(textView.getText().toString(), (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount(), currentDay, currentMonth, currentYear);
 
                     if (user != null) {
                         String userEmail = user.getEmail();
@@ -138,11 +138,12 @@ public class AddNewMeal extends AppCompatActivity {
         fatView = findViewById(R.id.fat_value);
         proteinView = findViewById(R.id.protein_value);
 
+
         backArrow = findViewById(R.id.backArrow);
         Intent intent = getIntent();
         String selectedRecipe = intent.getStringExtra("SELECTED_RECIPE");
         int selectedId = intent.getIntExtra("ItemId",-1);
-        TextView textView = findViewById(R.id.meal_item_name_add_new_meal);
+        textView = findViewById(R.id.meal_item_name_add_new_meal);
         textView.setText(selectedRecipe);
 
         sendApiRequest(selectedId);

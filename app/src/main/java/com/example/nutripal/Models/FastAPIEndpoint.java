@@ -20,4 +20,6 @@ public interface FastAPIEndpoint {
 
     @POST("/userdata/{user_email}")
     Call<UserData> setUserData(@Path("user_email") String userEmail, @Body UserData user);
+    @GET("/userdata/{user_email}")
+    Call<UserData> getUserData(@Path("user_email") String userEmail);
 }
