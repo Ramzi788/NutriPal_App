@@ -81,10 +81,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     public HomePage() {}
     public void onResume(){
         super.onResume();
-        if (stepSensor == null){
-            Toast.makeText(getActivity(),"This device has no sensor", Toast.LENGTH_SHORT).show();
-        }
-        else {
+
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_FASTEST);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String currentDate = sdf.format(new Date());
@@ -94,7 +91,6 @@ public class HomePage extends Fragment implements SensorEventListener {
                 // It's a new day, reset steps and store the new date
                 previewTotalSteps = totalSteps;
                 storeLastUpdateDate(currentDate);
-            }
         }
 
     }
@@ -124,7 +120,7 @@ public class HomePage extends Fragment implements SensorEventListener {
             int value = Integer.parseInt(currentCalories.getText().toString());
             value += calories;
             currentCalories.setText(Integer.toString(value));
-            caloriesProgressBar.setProgress(value);
+            caloriesProgressBar.setProgress(Integer.parseInt(currentCalories.getText().toString()));
             Toast.makeText(getActivity(),Integer.toString(caloriesProgressBar.getProgress()), Toast.LENGTH_SHORT).show();
         });
     }
@@ -132,7 +128,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -153,45 +149,9 @@ public class HomePage extends Fragment implements SensorEventListener {
         });
 
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
-        ImageView logOutButton = view.findViewById(R.id.log_out);
-        CalorieGoal = view.findViewById(R.id.CalorieGoal);
-        caloriesProgressBar = view.findViewById(R.id.progressBar_calories);
-        stepsProgressBar= view.findViewById(R.id.progressBar_steps);
-        stepsText = view.findViewById(R.id.stepsCounter);
-        currentCalories = view.findViewById(R.id.currentCalories);
-        fullName = view.findViewById(R.id.welcomeTextView);
-        if (user!=null){
-            fetchUserData(user.getEmail());
-        }
-
-        fetchNutritionalData();
-
-
-        sensorManager = (SensorManager)requireActivity().getSystemService(Context.SENSOR_SERVICE);
-        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-
-
-
-
-        logOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.signOut();
-                Intent intent = new Intent(getActivity(), Splash_Screen.class); // Replace with actual activity
-                startActivity(intent);
-            }
-        });
-        return view;
-    }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -213,4 +173,51 @@ public class HomePage extends Fragment implements SensorEventListener {
             }
         });
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main, container, false);
+        ImageView logOutButton = view.findViewById(R.id.log_out);
+        caloriesProgressBar = view.findViewById(R.id.progressBar_calories);
+        stepsProgressBar= view.findViewById(R.id.progressBar_steps);
+        stepsText = view.findViewById(R.id.stepsCounter);
+        currentCalories = view.findViewById(R.id.currentCalories);
+
+
+
+
+        CalorieGoal = view.findViewById(R.id.CalorieGoal);
+        fullName = view.findViewById(R.id.welcomeTextView);
+        int maxCalories = Integer.parseInt(CalorieGoal.getText().toString());
+        caloriesProgressBar.setMax(maxCalories);
+        if (user!=null){
+            fetchUserData(user.getEmail());
+        }
+        fetchNutritionalData();
+        //Setting the values of the progress bar
+        stepsProgressBar.setMax(10000);
+        stepsProgressBar.setProgress(0);
+
+        sensorManager = (SensorManager)requireActivity().getSystemService(Context.SENSOR_SERVICE);
+        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+
+
+
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent intent = new Intent(getActivity(), Splash_Screen.class); // Replace with actual activity
+                startActivity(intent);
+            }
+        });
+        return view;
+    }
+
+
+
+
 }

@@ -10,7 +10,6 @@
     android:background="#493DD9"
     tools:context=".MainActivity">
 
-    <!-- The LinearLayout for item_meal -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -22,9 +21,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_margin="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/lightpurple_box"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
@@ -61,30 +64,26 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp">
+        <LinearLayout
+            android:id="@+id/test2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
+
             <com.harrywhewell.scrolldatepicker.DayScrollDatePicker
                 android:id="@+id/dayDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/purple_blue"
                 app:baseColor="@color/purple"
                 app:baseTextColor="@color/light_purple"
                 app:selectedColor="@color/white"
                 app:selectedTextColor="@color/purple_blue"
-                app:showTitle="false"
                 app:showFullDate="false" />
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/footer"
@@ -93,8 +92,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
-
+        app:layout_constraintStart_toStartOf="parent">
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

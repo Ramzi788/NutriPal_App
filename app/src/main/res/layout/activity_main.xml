@@ -124,7 +124,7 @@
                         android:id="@+id/CalorieGoal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5500"
+                        android:text="0"
                         android:textStyle="bold"
                         android:textSize="24sp"
                         android:gravity="center"/>
@@ -582,15 +582,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
 
     </LinearLayout>
-
-
-    <!-- The rest of the UI components such as the calorie counter, steps, recent scans, and BMI statistics -->
-    <!-- ... -->
-
-
 </RelativeLayout>
