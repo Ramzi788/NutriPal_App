@@ -68,7 +68,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private SensorManager sensorManager = null;
     private Sensor stepSensor;
-    private int totalSteps = 0 , previewTotalSteps = 0;
+    private int totalSteps = 0 , previewTotalSteps = 0, maxCalories;
     private TextView stepsText, currentCalories, CalorieGoal, fullName;
     private ProgressBar stepsProgressBar, caloriesProgressBar;
     private int height, weight;
@@ -118,9 +118,9 @@ public class HomePage extends Fragment implements SensorEventListener {
     private void updateCurrentStatus(int calories) {
         requireActivity().runOnUiThread(() -> {
             int value = Integer.parseInt(currentCalories.getText().toString());
-            value += calories;
-            currentCalories.setText(Integer.toString(value));
-            caloriesProgressBar.setProgress(Integer.parseInt(currentCalories.getText().toString()));
+            currentCalories.setText(Integer.toString(value + calories));
+            caloriesProgressBar.setProgress(value + calories);
+            caloriesProgressBar.animate();
             Toast.makeText(getActivity(),Integer.toString(caloriesProgressBar.getProgress()), Toast.LENGTH_SHORT).show();
         });
     }
@@ -128,7 +128,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -151,7 +151,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -162,7 +162,9 @@ public class HomePage extends Fragment implements SensorEventListener {
             public void onResponse(Call<UserData> call, Response<UserData> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     UserData userData = response.body();
-                    CalorieGoal.setText(String.valueOf(userData.getCalorieGoal()));
+                    maxCalories = userData.getCalorieGoal();
+                    caloriesProgressBar.setMax(maxCalories);
+                    CalorieGoal.setText(String.valueOf(maxCalories));
                     fullName.setText("Welcome, \n" + userData.getFirstName()+ " " + userData.getLastName());
                 }
             }
@@ -183,14 +185,8 @@ public class HomePage extends Fragment implements SensorEventListener {
         stepsProgressBar= view.findViewById(R.id.progressBar_steps);
         stepsText = view.findViewById(R.id.stepsCounter);
         currentCalories = view.findViewById(R.id.currentCalories);
-
-
-
-
         CalorieGoal = view.findViewById(R.id.CalorieGoal);
         fullName = view.findViewById(R.id.welcomeTextView);
-        int maxCalories = Integer.parseInt(CalorieGoal.getText().toString());
-        caloriesProgressBar.setMax(maxCalories);
         if (user!=null){
             fetchUserData(user.getEmail());
         }
