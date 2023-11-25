@@ -36,6 +36,7 @@
             android:paddingBottom="8dp">
 
             <EditText
+                android:id="@+id/firstName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
@@ -62,6 +63,7 @@
             android:paddingBottom="8dp">
 
             <EditText
+                android:id="@+id/lastName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"

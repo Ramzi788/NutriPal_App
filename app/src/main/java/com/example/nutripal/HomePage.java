@@ -144,22 +144,7 @@ public class HomePage extends Fragment implements SensorEventListener {
                 // Handle failure
             }
         });
-        api.getUserData(userEmail).enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    UserData nutrition = response.body();
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-
-            }
-
-
-        });
     }
 
     @Override

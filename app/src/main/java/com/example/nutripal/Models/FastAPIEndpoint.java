@@ -19,8 +19,5 @@ public interface FastAPIEndpoint {
     Call<NutritionResponse> getMeals(@Path("user_email") String userId);
 
     @POST("/userdata/{user_email}")
-    Call<UserData> setUserData(@Path("user_email") String userId, @Body UserData user);
-
-    @GET("/userdata/{user_email}")
-    Call<UserData> getUserData(@Path("user_email") String userEmail);
+    Call<UserData> setUserData(@Path("user_email") String userEmail, @Body UserData user);
 }

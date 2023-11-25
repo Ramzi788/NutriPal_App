@@ -34,8 +34,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EnterDetails extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
     private LinearLayout continueButton;
-    private EditText calorieGoal;
-    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private EditText calorieGoal, firstName, lastName, height, weight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,17 +44,53 @@ public class EnterDetails extends AppCompatActivity {
         editText.setFocusable(false);
         continueButton = findViewById(R.id.continueButton);
         calorieGoal = findViewById(R.id.calorieGoal);
-
+        firstName = findViewById(R.id.firstName);
+        lastName = findViewById(R.id.lastName);
+        height = findViewById(R.id.heightInput);
+        weight = findViewById(R.id.weightInput);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String calorieGoalInput = calorieGoal.getText().toString();
-                assert user != null;
-                if (!calorieGoalInput.isEmpty()) {
+                String heightInput = height.getText().toString();
+                String weightInput = weight.getText().toString();
+                String firstNameInput = firstName.getText().toString();
+                String lastNameInput = lastName.getText().toString();
+                if (user != null && !calorieGoalInput.isEmpty() && !heightInput.isEmpty() && !weightInput.isEmpty() &&!firstNameInput.isEmpty() && !lastNameInput.isEmpty()) {
                     int goal = Integer.parseInt(calorieGoalInput);
-                    sendApiRequest(user.getEmail(), goal);
-                } else {
+                    int userHeight = Integer.parseInt(heightInput);
+                    int userWeight = Integer.parseInt(weightInput);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://192.168.1.104:8000") // Replace with your server URL
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
+                    UserData userData = new UserData(goal, userHeight, userWeight,firstNameInput, lastNameInput);
+
+                    api.setUserData(user.getEmail(), userData).enqueue(new Callback<UserData>() {
+                        @Override
+                        public void onResponse(Call<UserData> call, Response<UserData> response) {
+                            if (response.isSuccessful()) {
+                                // Start MainActivity here after successful response
+                                Intent intent = new Intent(EnterDetails.this, MainActivity.class);
+                                startActivity(intent);
+                            } else {
+                                // Handle failure case
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserData> call, Throwable t) {
+                            // Handle network error
+                        }
+                    });
+                }
+                else if (user ==null){
+                    Toast.makeText(EnterDetails.this, "No user", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     Toast.makeText(EnterDetails.this, "Please enter a calorie goal", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent(EnterDetails.this, MainActivity.class);
@@ -87,25 +123,5 @@ public class EnterDetails extends AppCompatActivity {
             }
         });
     }
-    private void sendApiRequest(String id, int calorieGoal) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000") // Replace with your server URL
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
-        UserData userData = new UserData(calorieGoal);
-        api.setUserData(id, userData).enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
 
-            }
-
-            @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-
-            }
-
-
-        });
-    }
 }
