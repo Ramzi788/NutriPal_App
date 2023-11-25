@@ -24,6 +24,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.nutripal.Models.FastAPIEndpoint;
 import com.example.nutripal.Models.NutritionResponse;
+import com.example.nutripal.Models.User;
+import com.example.nutripal.Models.UserData;
 import com.example.nutripal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -123,7 +125,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -142,14 +144,29 @@ public class HomePage extends Fragment implements SensorEventListener {
                 // Handle failure
             }
         });
+        api.getUserData(userEmail).enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserData nutrition = response.body();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+
+            }
+
+
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
-        ImageView profileItem = view.findViewById(R.id.profile_icon);
-        ImageView settingsIcon = view.findViewById(R.id.settings_icon);
+        ImageView logOutButton = view.findViewById(R.id.log_out);
         caloriesProgressBar = view.findViewById(R.id.progressBar_calories);
         stepsProgressBar= view.findViewById(R.id.progressBar_steps);
         stepsText = view.findViewById(R.id.stepsCounter);
@@ -169,27 +186,13 @@ public class HomePage extends Fragment implements SensorEventListener {
 
 
 
-        settingsIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Settings.class); // Replace with actual activity
-                startActivity(intent);
-            }
-        });
-        if (getActivity()!= null){
-            Intent intent = getActivity().getIntent();
 
-            if (intent != null) {
-                height = intent.getIntExtra("HEIGHT", -1);
-                weight = intent.getIntExtra("WEIGHT", -1);
-            }
-        }
-
-
-        profileItem.setOnClickListener(new View.OnClickListener() {
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), profileActivity.class); // Replace with actual activity
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent intent = new Intent(getActivity(), Splash_Screen.class); // Replace with actual activity
                 startActivity(intent);
             }
         });

@@ -82,7 +82,7 @@ public class AddNewMeal extends AppCompatActivity {
         checkMark = findViewById(R.id.checkMark);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000") // Replace with your server URL
+                .baseUrl("http://192.168.1.104:8000") // Replace with your server URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -140,7 +140,6 @@ public class AddNewMeal extends AppCompatActivity {
         TextView textView = findViewById(R.id.meal_item_name_add_new_meal);
         textView.setText(selectedRecipe);
 
-        // Use sendApiRequest to make the API call
         sendApiRequest(selectedId);
 
         backArrow.setOnClickListener(new View.OnClickListener() {

@@ -51,7 +51,7 @@ public class RegisterPage extends AppCompatActivity {
                 return;
             }
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.2.2:8000") // Replace with your server URL
+                    .baseUrl("http://192.168.1.104:8000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -61,8 +61,11 @@ public class RegisterPage extends AppCompatActivity {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful())
+                    if(response.isSuccessful()) {
+                        mAuth.signInWithEmailAndPassword(emailInput,passInput);
+                        startActivity(intent);
                         System.out.println("User registered");
+                    }
                     else
                         System.out.println("Failed to register via response");
                 }
@@ -72,6 +75,7 @@ public class RegisterPage extends AppCompatActivity {
                     System.out.println("Failed to register");
                 }
             });
+            mAuth.signInWithEmailAndPassword(emailInput,passInput);
             startActivity(intent);
         });
     }

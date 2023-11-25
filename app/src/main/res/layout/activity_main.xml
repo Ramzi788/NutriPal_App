@@ -29,15 +29,7 @@
                 android:layout_width="43dp"
                 android:layout_height="45dp"
                 android:src="@drawable/streak_icon" />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-            <ImageView
-                android:id="@+id/settings_icon"
-                android:layout_width="43dp"
-                android:layout_height="45dp"
-                android:src="@drawable/settings_icon" />
+
 
             <View
                 android:layout_width="0dp"
@@ -45,10 +37,10 @@
                 android:layout_weight="0.05" />
 
             <ImageView
-                android:id="@+id/profile_icon"
-                android:layout_width="43dp"
-                android:layout_height="45dp"
-                android:src="@drawable/profile_icon" />
+                android:id="@+id/log_out"
+                android:layout_width="36dp"
+                android:layout_height="35dp"
+                android:src="@drawable/log_out" />
 
         </LinearLayout>
 
