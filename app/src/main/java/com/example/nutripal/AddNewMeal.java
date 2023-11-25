@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -37,6 +38,10 @@ public class AddNewMeal extends AppCompatActivity {
     private ProgressBar caloriesBar;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    Calendar calendar = Calendar.getInstance();
+    int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+    int currentMonth = calendar.get(Calendar.MONTH) + 1;
+    int currentYear = calendar.get(Calendar.YEAR);
     private void sendApiRequest(int id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
@@ -90,7 +95,7 @@ public class AddNewMeal extends AppCompatActivity {
             checkMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Meal newMeal = new Meal("Meal Name", (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount());
+                    Meal newMeal = new Meal("Meal Name", (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount(), currentDay, currentMonth, currentYear);
 
                     if (user != null) {
                         String userEmail = user.getEmail();

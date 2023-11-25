@@ -1,12 +1,13 @@
 package com.example.nutripal.Models;
 public class Meal {
     String name;
-    int calories;
+    int calories, dateYear, dateMonth, dateDay;
     int carbs;
     int fat;
     int protein;
     int fiber;
     String mealType;
+
 
     public int getFiber() {
         return fiber;
@@ -16,13 +17,16 @@ public class Meal {
         this.fiber = fiber;
     }
 
-    public Meal(String name, int calories, int carbs, int fat, int protein, int fiber) {
+    public Meal(String name, int calories, int carbs, int fat, int protein, int fiber, int dateDay, int dateMonth, int dateYear) {
         this.name = name;
         this.calories = calories;
         this.carbs = carbs;
         this.fat = fat;
         this.protein = protein;
         this.fiber = fiber;
+        this.dateDay = dateDay;
+        this.dateMonth = dateMonth;
+        this.dateYear = dateYear;
     }
 
     public String getName() {

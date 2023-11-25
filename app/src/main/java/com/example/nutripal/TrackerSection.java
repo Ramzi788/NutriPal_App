@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +29,11 @@ public class TrackerSection extends Fragment {
     private ProgressBar carbsBar, proteinBar, fatBar, progressBarFiber;
     private TextView currentCarbs, currentProtein, currentFat, currentFiber;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    Calendar calendar = Calendar.getInstance();
+    int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+    int currentMonth = calendar.get(Calendar.MONTH) + 1;
+    int currentYear = calendar.get(Calendar.YEAR);
+    String currentDate = currentDay + "-" + currentMonth + "-" + currentYear;
     public TrackerSection() {}
 
 
@@ -57,7 +64,7 @@ public class TrackerSection extends Fragment {
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
-        api.getMeals(userEmail).enqueue(new Callback<NutritionResponse>() {
+        api.getMeals(userEmail, currentDate).enqueue(new Callback<NutritionResponse>() {
             @Override
             public void onResponse(Call<NutritionResponse> call, Response<NutritionResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {

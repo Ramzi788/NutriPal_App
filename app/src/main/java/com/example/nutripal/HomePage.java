@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -43,6 +44,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePage extends Fragment implements SensorEventListener {
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
@@ -71,6 +73,11 @@ public class HomePage extends Fragment implements SensorEventListener {
     private ProgressBar stepsProgressBar, caloriesProgressBar;
     private int height, weight;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    Calendar calendar = Calendar.getInstance();
+    int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+    int currentMonth = calendar.get(Calendar.MONTH) + 1;
+    int currentYear = calendar.get(Calendar.YEAR);
+    String currentDate = currentDay + "-" + currentMonth + "-" + currentYear;
     public HomePage() {}
     public void onResume(){
         super.onResume();
@@ -130,7 +137,7 @@ public class HomePage extends Fragment implements SensorEventListener {
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
-        api.getMeals(userEmail).enqueue(new Callback<NutritionResponse>() {
+        api.getMeals(userEmail,currentDate).enqueue(new Callback<NutritionResponse>() {
             @Override
             public void onResponse(Call<NutritionResponse> call, Response<NutritionResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {

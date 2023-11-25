@@ -62,9 +62,14 @@ public class RegisterPage extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()) {
-                        mAuth.signInWithEmailAndPassword(emailInput,passInput);
-                        startActivity(intent);
-                        System.out.println("User registered");
+                        mAuth.signInWithEmailAndPassword(emailInput, passInput)
+                                .addOnCompleteListener(task -> {
+                                    if(task.isSuccessful()) {
+                                        startActivity(intent); // Start next activity only if sign in is successful
+                                    } else {
+                                        // Handle sign in failure
+                                    }
+                                });
                     }
                     else
                         System.out.println("Failed to register via response");
