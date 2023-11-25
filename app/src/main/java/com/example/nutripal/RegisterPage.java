@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nutripal.Models.FastAPIEndpoint;
@@ -23,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterPage extends AppCompatActivity {
     private EditText email, pass, username;
+    private TextView loginPrompt;
     private LinearLayout button;
     private FirebaseAuth mAuth;
 
@@ -34,8 +37,13 @@ public class RegisterPage extends AppCompatActivity {
         email = findViewById(R.id.emailEditText);
         pass = findViewById(R.id.passwordEditText);
         button = findViewById(R.id.registerButton);
+        loginPrompt = findViewById(R.id.LoginPrompt);
 
         mAuth = FirebaseAuth.getInstance();
+        loginPrompt.setOnClickListener(view -> {
+            Intent intent = new Intent(RegisterPage.this, LoginPage.class);
+            startActivity(intent);
+        });
 
         button.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterPage.this, EnterDetails.class);
