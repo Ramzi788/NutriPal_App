@@ -25,6 +25,12 @@ public interface FastAPIEndpoint {
     @GET("/userdata/{user_email}")
     Call<UserData> getUserData(@Path("user_email") String userEmail);
 
+    @POST("/waterdata/{user_email}")
+    Call<Water> setWaterData(@Path("user_email") String userEmail, @Body Water water);
+    @GET("/waterdata/{user_email}")
+    Call<Water> getWaterData(@Path("user_email") String userEmail);
+
+
     @GET("/userdata/{user_email}/{mealType}")
     Call<List<MealEaten>> get_meals_eaten(@Path("user_email") String userEmail, @Path("mealType") String mealType);
 

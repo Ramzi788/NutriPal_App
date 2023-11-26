@@ -106,19 +106,7 @@ public class MealEaten {
     // You might also want to override toString() for easy debugging
     @Override
     public String toString() {
-        return "MealEaten{" +
-                "dateMonth=" + dateMonth +
-                ", name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", carbs=" + carbs +
-                ", calories=" + calories +
-                ", fiber=" + fiber +
-                ", dateDay=" + dateDay +
-                ", protein=" + protein +
-                ", mealType='" + mealType + '\'' +
-                ", dateYear=" + dateYear +
-                ", fat=" + fat +
-                '}';
+        return name + calories;
     }
 }
 

@@ -1,0 +1,23 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Track -->
+    <item android:id="@android:id/background"
+        android:top="7dp"
+        android:bottom="7dp">
+        <shape>
+            <solid android:color="@color/light_blue"/> <!-- Light purple color for the track -->
+            <corners android:radius="4dp" /> <!-- Rounded corners -->
+        </shape>
+    </item>
+
+    <!-- Progress -->
+    <item android:id="@android:id/progress"
+        android:top="7dp"
+        android:bottom="7dp">
+        <clip>
+            <shape>
+                <solid android:color="@color/bright_blue"/> <!-- Purple color for the progress -->
+                <corners android:radius="4dp" /> <!-- Rounded corners -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>

@@ -76,12 +76,16 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mealsList"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/mealSummaryList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/add_new_meal_food_summary"
