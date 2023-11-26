@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class AddNewMeal extends AppCompatActivity {
     private ImageView backArrow, checkMark;
     private TextView caloriesView, carbsView, fatView, proteinView, textView ; // TextViews to display the nutrients
     private ProgressBar caloriesBar;
+    private Spinner mealTypeSpinner;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     Calendar calendar = Calendar.getInstance();
@@ -49,7 +51,7 @@ public class AddNewMeal extends AppCompatActivity {
                 .build();
 
         SpoonacularApi api = retrofit.create(SpoonacularApi.class);
-        Call<NutrientSearchResponse> call = api.getNutrients(id, "67f24b385b80476f91f6dde402c11261");
+        Call<NutrientSearchResponse> call = api.getNutrients(id, "8d88921db42047f780df91d089df065a");
 
         call.enqueue(new Callback<NutrientSearchResponse>() {
             @Override
@@ -95,7 +97,7 @@ public class AddNewMeal extends AppCompatActivity {
             checkMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Meal newMeal = new Meal(textView.getText().toString(), (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount(), currentDay, currentMonth, currentYear);
+                    Meal newMeal = new Meal(textView.getText().toString(), (int) calories.getAmount(), (int) carbs.getAmount(), (int) fat.getAmount(), (int) protein.getAmount(), (int) fiber.getAmount(), currentDay, currentMonth, currentYear, mealTypeSpinner.getSelectedItem().toString());
 
                     if (user != null) {
                         String userEmail = user.getEmail();
@@ -137,6 +139,8 @@ public class AddNewMeal extends AppCompatActivity {
         carbsView = findViewById(R.id.carbs_value);
         fatView = findViewById(R.id.fat_value);
         proteinView = findViewById(R.id.protein_value);
+
+        mealTypeSpinner = findViewById(R.id.meal_type_spinner);
 
 
         backArrow = findViewById(R.id.backArrow);

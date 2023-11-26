@@ -47,7 +47,7 @@ public class AddMeal extends AppCompatActivity {
                 .build();
 
         SpoonacularApi api = retrofit.create(SpoonacularApi.class);
-        Call<RecipeSearchResponse> call = api.getRecipeInfo(query, "67f24b385b80476f91f6dde402c11261");
+        Call<RecipeSearchResponse> call = api.getRecipeInfo(query, "8d88921db42047f780df91d089df065a");
 
         call.enqueue(new Callback<RecipeSearchResponse>() {
             @Override

@@ -1,6 +1,8 @@
 package com.example.nutripal.Models;
 
 
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -22,4 +24,8 @@ public interface FastAPIEndpoint {
     Call<UserData> setUserData(@Path("user_email") String userEmail, @Body UserData user);
     @GET("/userdata/{user_email}")
     Call<UserData> getUserData(@Path("user_email") String userEmail);
+
+    @GET("/userdata/{user_email}/{mealType}")
+    Call<List<MealEaten>> get_meals_eaten(@Path("user_email") String userEmail, @Path("mealType") String mealType);
+
 }
