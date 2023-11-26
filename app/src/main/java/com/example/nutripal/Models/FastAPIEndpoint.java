@@ -33,5 +33,7 @@ public interface FastAPIEndpoint {
 
     @GET("/userdata/{user_email}/{mealType}")
     Call<List<MealEaten>> get_meals_eaten(@Path("user_email") String userEmail, @Path("mealType") String mealType);
+    @GET("/meals/{user_email}")
+    Call<List<MealEaten>> getAllMeals(@Path("user_email") String userEmail);
 
 }

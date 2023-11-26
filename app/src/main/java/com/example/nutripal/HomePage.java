@@ -132,7 +132,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -155,7 +155,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -202,7 +202,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     private void fetchCurrentCalories(String userEmail, Consumer<Integer> onCaloriesFetched) {
         // Example Retrofit setup (replace with your actual endpoint call)
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);

@@ -49,10 +49,10 @@ public class DiarySection extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         if(currentUser != null) {
-            fetchUserData(currentUser.getEmail(), "breakfast", bkfst_calories);
-            fetchUserData(currentUser.getEmail(), "lunch", lunch_calories);
-            fetchUserData(currentUser.getEmail(), "dinner", dinner_calories);
-            fetchUserData(currentUser.getEmail(), "snack", snack_calories);
+            fetchUserData(currentUser.getEmail(), "Breakfast", bkfst_calories);
+            fetchUserData(currentUser.getEmail(), "Lunch", lunch_calories);
+            fetchUserData(currentUser.getEmail(), "Dinner", dinner_calories);
+            fetchUserData(currentUser.getEmail(), "Snack", snack_calories);
         }
         box.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class DiarySection extends Fragment {
     }
     private void fetchUserData(String userEmail, String mealType, TextView caloriesTextView) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.0.2.2:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);

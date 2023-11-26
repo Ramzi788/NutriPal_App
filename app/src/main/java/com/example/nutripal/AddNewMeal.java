@@ -89,7 +89,7 @@ public class AddNewMeal extends AppCompatActivity {
         checkMark = findViewById(R.id.checkMark);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000") // Replace with your server URL
+                .baseUrl("http://10.0.2.2:8000") // Replace with your server URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -109,7 +109,6 @@ public class AddNewMeal extends AppCompatActivity {
                                     Toast.makeText(AddNewMeal.this, "Meal added successfully", Toast.LENGTH_SHORT).show();
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 Toast.makeText(AddNewMeal.this, "Error adding meal", Toast.LENGTH_SHORT).show();

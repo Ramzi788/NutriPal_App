@@ -25,6 +25,7 @@ import com.example.nutripal.Models.FastAPIEndpoint;
 import com.example.nutripal.Models.Meal;
 import com.example.nutripal.Models.MealAdapter;
 import com.example.nutripal.Models.MealEaten;
+import com.example.nutripal.Models.NutritionResponse;
 import com.example.nutripal.Models.Recipe;
 import com.example.nutripal.Models.RecipeSearchResponse;
 import com.example.nutripal.Models.SpoonacularApi;
@@ -48,6 +49,8 @@ import retrofit2.http.Query;
 public class AddMeal extends AppCompatActivity {
     private List<Recipe> recipesList;
     private ListView historyList;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
     private void sendApiRequest(String query) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
@@ -108,6 +111,14 @@ public class AddMeal extends AppCompatActivity {
     private AutoCompleteTextView textView;
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        user = auth.getCurrentUser();
+        if(user != null)
+            fetchNutritionalData();
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +126,18 @@ public class AddMeal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
         ImageView backArrow = findViewById(R.id.backArrow);
+        historyList = findViewById(R.id.historyList);
         textView = findViewById(R.id.searchEditText);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        if(user != null)
+            fetchNutritionalData();
+
         textView.setOnItemClickListener((adapterView, view, position, id) -> {
             String selectedRecipe = (String) adapterView.getItemAtPosition(position);
             textView.setText(selectedRecipe);
         });
-        historyList = findViewById(R.id.historyList);
-
         textView.setOnClickListener(view -> {
             String query = textView.getText().toString();
             if (!query.isEmpty()) {
@@ -166,6 +182,40 @@ public class AddMeal extends AppCompatActivity {
             }
         }
         return -1; // return an invalid ID or throw an exception if no match is found
+    }
+
+    private void fetchNutritionalData() {
+        assert user != null;
+        String userEmail = user.getEmail();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
+
+        api.getAllMeals(userEmail).enqueue(new Callback<List<MealEaten>>() {
+            @Override
+            public void onResponse(Call<List<MealEaten>> call, Response<List<MealEaten>> response) {
+                if(response.isSuccessful()){
+                    List<MealEaten> meals = response.body();
+                    MealEaten[] displayList = new MealEaten[meals.size()];
+                    for(int i = 0; i < displayList.length; i++)
+                        displayList[i] = meals.get(i);
+                    MealAdapter adapter = new MealAdapter(AddMeal.this, meals);
+                    adapter.notifyDataSetChanged();
+                    historyList.setAdapter(adapter);
+                }
+                else{
+                    Log.d("ALLMEALS API: ", "Failed, in on Response block");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MealEaten>> call, Throwable t) {
+                Log.d("ALLMEALS API: ", "Failed, in on failure block");
+            }
+        });
+
     }
 
 }
