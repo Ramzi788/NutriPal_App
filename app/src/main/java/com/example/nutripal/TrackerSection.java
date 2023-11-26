@@ -1,12 +1,17 @@
 package com.example.nutripal;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +38,7 @@ public class TrackerSection extends Fragment {
     int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
     int currentMonth = calendar.get(Calendar.MONTH) + 1;
     int currentYear = calendar.get(Calendar.YEAR);
+    private int drinkQuantity;
     String currentDate = currentDay + "-" + currentMonth + "-" + currentYear;
     public TrackerSection() {}
 
@@ -41,6 +47,7 @@ public class TrackerSection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.trackers, container, false);
+        LinearLayout waterConsumed = view.findViewById(R.id.waterConsumed);
         carbsBar = view.findViewById(R.id.progressBarCarbs);
         proteinBar = view.findViewById(R.id.progressBarProtein);
         fatBar = view.findViewById(R.id.progressBarFat);
@@ -50,16 +57,65 @@ public class TrackerSection extends Fragment {
         currentFat = view.findViewById(R.id.textViewFat);
         currentFiber = view.findViewById(R.id.textViewFiber);
 
+        waterConsumed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showWaterIntakePopup();
+            }
+        });
+
         fetchNutritionalData();
+
+
 
         return view;
 
     }
+    private void showWaterIntakePopup() {
+        LayoutInflater inflater = getLayoutInflater();
+        View popupView = inflater.inflate(R.layout.activity_water_intake_popup, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(popupView);
+        final AlertDialog dialog = builder.create();
+
+        SeekBar seekBarWaterIntake = popupView.findViewById(R.id.sb_water_intake);
+        final TextView quantityIndicator = popupView.findViewById(R.id.tv_quantity_indicator);
+        seekBarWaterIntake.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                drinkQuantity = progress;
+                quantityIndicator.setText(String.format("%d ml", drinkQuantity));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        Button submitButton = popupView.findViewById(R.id.btn_submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     private void fetchNutritionalData() {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);

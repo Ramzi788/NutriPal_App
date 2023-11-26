@@ -1,8 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/displaytext"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:textSize="18sp" />
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="16dp">
+    <TextView
+
+        android:id="@+id/displaytext"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+
+        android:textSize="18sp" />
+    <TextView
+        android:textAlignment="viewEnd"
+        android:id="@+id/displayCalories"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:text="0"
+        android:textSize="18sp" />
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:elevation="4dp"
+    android:background="@android:color/white">
+
+    <!-- Water Icon -->
+    <ImageView
+        android:id="@+id/water_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/waters"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Slider Title -->
+    <TextView
+        android:id="@+id/tv_slider_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How much water did you drink?"
+        android:layout_below="@id/water_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Slider for Water Intake -->
+
+    <!-- Quantity Indicator -->
+
+    <SeekBar
+        android:id="@+id/sb_water_intake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_slider_title"
+        android:layout_marginTop="14dp"
+        android:max="10000"
+        android:progress="0"
+        android:progressDrawable="@drawable/bar"
+        android:progressTint="@color/bright_blue"
+        android:splitTrack="false"
+        android:thumb="@drawable/ic_water_icon"
+        android:thumbOffset="12dp" />
+
+    <TextView
+        android:id="@+id/tv_quantity_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 ml"
+        android:layout_below="@id/sb_water_intake"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        android:layout_below="@id/tv_quantity_indicator"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/bright_blue"
+        />
+
+</RelativeLayout>

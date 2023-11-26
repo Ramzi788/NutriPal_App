@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.zip.Inflater;
 
 import retrofit2.Call;
@@ -69,9 +70,9 @@ public class HomePage extends Fragment implements SensorEventListener {
     private SensorManager sensorManager = null;
     private Sensor stepSensor;
     private int totalSteps = 0 , previewTotalSteps = 0, maxCalories;
-    private TextView stepsText, currentCalories, CalorieGoal, fullName;
+    private TextView stepsText, currentCalories, CalorieGoal, fullName, caloriesRemaining;
     private ProgressBar stepsProgressBar, caloriesProgressBar;
-    private int height, weight;
+    private TextView heightText, weightText, bmi;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     Calendar calendar = Calendar.getInstance();
     int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -92,10 +93,11 @@ public class HomePage extends Fragment implements SensorEventListener {
                 previewTotalSteps = totalSteps;
                 storeLastUpdateDate(currentDate);
         }
-            if(user != null){
-                fetchUserData(user.getEmail());
-                fetchNutritionalData();
-            }
+        if (user != null) {
+            fetchUserData(user.getEmail());
+            fetchNutritionalData();
+        }
+
     }
 
     private void storeLastUpdateDate(String date) {
@@ -124,13 +126,13 @@ public class HomePage extends Fragment implements SensorEventListener {
             currentCalories.setText(Integer.toString(value + calories));
             caloriesProgressBar.setProgress(value + calories);
             caloriesProgressBar.animate();
-        });
+            });
     }
     private void fetchNutritionalData() {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -153,27 +155,77 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
-        api.getUserData(userEmail).enqueue(new Callback<UserData>() {
-            @SuppressLint("SetTextI18n")
+        fetchCurrentCalories(userEmail, currentValue -> {
+            // Now fetch the user data
+            api.getUserData(userEmail).enqueue(new Callback<UserData>() {
+                // ... existing onResponse implementation ...
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onResponse(Call<UserData> call, Response<UserData> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        UserData userData = response.body();
+                        maxCalories = userData.getCalorieGoal();
+
+                        requireActivity().runOnUiThread(() -> {
+                            caloriesProgressBar.setMax(maxCalories);
+                            CalorieGoal.setText(String.valueOf(maxCalories));
+                            caloriesRemaining.setText((maxCalories - currentValue) + " Calories Remaining");
+                            currentCalories.setText(String.valueOf(currentValue));
+                            caloriesProgressBar.setProgress(currentValue);
+
+                            heightText.setText("Height: " + userData.getHeight() + " cm");
+                            weightText.setText("Weight: " + userData.getWeight() + " kg");
+
+                            double height = userData.getHeight() / 100.0;
+                            double weight = userData.getWeight();
+                            double calculatedBMI = weight / Math.pow(height, 2);
+                            bmi.setText(String.format(Locale.getDefault(), "%.1f", calculatedBMI));
+                            fullName.setText("Welcome, \n" + userData.getFirstName() + " " + userData.getLastName());
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserData> call, Throwable t) {
+
+                }
+
+            });
+        });
+    }
+
+    private void fetchCurrentCalories(String userEmail, Consumer<Integer> onCaloriesFetched) {
+        // Example Retrofit setup (replace with your actual endpoint call)
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.104:8000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
+
+        // Replace getMeals with the actual API call that retrieves the current calories
+        api.getMeals(userEmail, currentDate).enqueue(new Callback<NutritionResponse>() {
             @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
+            public void onResponse(Call<NutritionResponse> call, Response<NutritionResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    UserData userData = response.body();
-                    maxCalories = userData.getCalorieGoal();
-                    caloriesProgressBar.setMax(maxCalories);
-                    CalorieGoal.setText(String.valueOf(maxCalories));
-                    fullName.setText("Welcome, \n" + userData.getFirstName()+ " " + userData.getLastName());
+                    // Assuming that NutritionResponse has a method to get the current calories
+                    NutritionResponse nutritionResponse = response.body();
+                    int currentCalories = nutritionResponse.getCalories();
+                    onCaloriesFetched.accept(currentCalories);
+                } else {
+                    // Handle the case where the response is not successful
+                    onCaloriesFetched.accept(0);
                 }
             }
 
             @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                // Handle network errors
+            public void onFailure(Call<NutritionResponse> call, Throwable t) {
+                // Handle the network error case
+                onCaloriesFetched.accept(0);
             }
         });
     }
@@ -189,6 +241,12 @@ public class HomePage extends Fragment implements SensorEventListener {
         currentCalories = view.findViewById(R.id.currentCalories);
         CalorieGoal = view.findViewById(R.id.CalorieGoal);
         fullName = view.findViewById(R.id.welcomeTextView);
+        caloriesRemaining = view.findViewById(R.id.caloriesRemaining);
+        heightText = view.findViewById(R.id.tvHeight);
+        weightText = view.findViewById(R.id.tvWeight);
+        bmi = view.findViewById(R.id.tvBmiValue);
+
+        //Setting the values of the progress bar
         stepsProgressBar.setMax(10000);
         stepsProgressBar.setProgress(0);
 

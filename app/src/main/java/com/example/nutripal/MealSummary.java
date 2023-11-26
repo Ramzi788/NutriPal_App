@@ -14,12 +14,15 @@ import android.widget.TextView;
 
 import com.example.nutripal.Models.FastAPIEndpoint;
 import com.example.nutripal.Models.Meal;
+import com.example.nutripal.Models.MealAdapter;
 import com.example.nutripal.Models.MealEaten;
+import com.example.nutripal.Models.NutritionResponse;
 import com.example.nutripal.Models.UserData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,14 +31,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MealSummary extends AppCompatActivity {
-    private TextView title;
+    private TextView title, totalCalories;
     private ImageView backArrow;
     private FirebaseAuth auth;
     private ListView mealSummaryList;
 
+
     private void fetchUserData(String userEmail, String mealType) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -45,11 +49,15 @@ public class MealSummary extends AppCompatActivity {
             public void onResponse(Call<List<MealEaten>> call, Response<List<MealEaten>> response) {
                 if (response.isSuccessful()) {
                     List<MealEaten> meals = response.body();
+                    int calorieSum = 0;
                     MealEaten[] displayList = new MealEaten[meals.size()];
-                    for(int i = 0; i < displayList.length; i++)
+                    for(int i = 0; i < displayList.length; i++) {
                         displayList[i] = meals.get(i);
-                    ArrayAdapter<MealEaten> adapter = new ArrayAdapter<>(MealSummary.this, R.layout.list_item, R.id.displaytext, displayList);
+                        calorieSum += meals.get(i).getCalories();
+                    }
+                    MealAdapter adapter = new MealAdapter(MealSummary.this, meals);
                     mealSummaryList.setAdapter(adapter);
+                    totalCalories.setText(String.valueOf(calorieSum));
                 } else
                     Log.d("API NON SUCCESSFUL RESPONSE: ", "FAILURE IN ON RESPONSE BLOCK");
 
@@ -62,7 +70,9 @@ public class MealSummary extends AppCompatActivity {
         });
     }
 
-            @Override
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_summary);
@@ -71,6 +81,7 @@ public class MealSummary extends AppCompatActivity {
         FirebaseUser currentUser = auth.getCurrentUser();
         title = findViewById(R.id.meal_summary_text_food_summary);
         backArrow = findViewById(R.id.backArrow);
+        totalCalories = findViewById(R.id.calorie_count_food_summary);
         Intent intent = getIntent();
         String title_top = intent.getStringExtra("TITLE");
         title.setText(title_top);

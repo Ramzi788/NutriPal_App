@@ -21,12 +21,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nutripal.Models.FastAPIEndpoint;
+import com.example.nutripal.Models.Meal;
+import com.example.nutripal.Models.MealAdapter;
+import com.example.nutripal.Models.MealEaten;
 import com.example.nutripal.Models.Recipe;
 import com.example.nutripal.Models.RecipeSearchResponse;
 import com.example.nutripal.Models.SpoonacularApi;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,6 +47,7 @@ import retrofit2.http.Query;
 
 public class AddMeal extends AppCompatActivity {
     private List<Recipe> recipesList;
+    private ListView historyList;
     private void sendApiRequest(String query) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
@@ -112,7 +120,7 @@ public class AddMeal extends AppCompatActivity {
             String selectedRecipe = (String) adapterView.getItemAtPosition(position);
             textView.setText(selectedRecipe);
         });
-
+        historyList = findViewById(R.id.historyList);
 
         textView.setOnClickListener(view -> {
             String query = textView.getText().toString();
