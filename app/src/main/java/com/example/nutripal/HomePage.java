@@ -69,9 +69,9 @@ public class HomePage extends Fragment implements SensorEventListener {
     private SensorManager sensorManager = null;
     private Sensor stepSensor;
     private int totalSteps = 0 , previewTotalSteps = 0, maxCalories;
-    private TextView stepsText, currentCalories, CalorieGoal, fullName;
+    private TextView stepsText, currentCalories, CalorieGoal, fullName, caloriesRemaining;
     private ProgressBar stepsProgressBar, caloriesProgressBar;
-    private int height, weight;
+    private TextView heightText, weightText, bmi;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     Calendar calendar = Calendar.getInstance();
     int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -128,7 +128,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -151,7 +151,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -165,6 +165,17 @@ public class HomePage extends Fragment implements SensorEventListener {
                     maxCalories = userData.getCalorieGoal();
                     caloriesProgressBar.setMax(maxCalories);
                     CalorieGoal.setText(String.valueOf(maxCalories));
+                    int currentValue = Integer.parseInt(currentCalories.getText().toString());
+                    int maxCalorie = maxCalories;
+                    int remaining = maxCalorie - currentValue;
+                    caloriesRemaining.setText(remaining + " Calories Remaining");
+                    heightText.setText("Height: " + userData.getHeight() + " cm");
+                    weightText.setText("Weight: " + userData.getWeight() + " kg");
+                    double height = userData.getHeight()/100.0;
+                    double weight = userData.getWeight();
+                    double calculatedBMI = weight/Math.pow(height,2);
+                    @SuppressLint("DefaultLocale") String formattedValue = String.format("%.1f", calculatedBMI);
+                    bmi.setText(formattedValue);
                     fullName.setText("Welcome, \n" + userData.getFirstName()+ " " + userData.getLastName());
                 }
             }
@@ -187,6 +198,10 @@ public class HomePage extends Fragment implements SensorEventListener {
         currentCalories = view.findViewById(R.id.currentCalories);
         CalorieGoal = view.findViewById(R.id.CalorieGoal);
         fullName = view.findViewById(R.id.welcomeTextView);
+        caloriesRemaining = view.findViewById(R.id.caloriesRemaining);
+        heightText = view.findViewById(R.id.tvHeight);
+        weightText = view.findViewById(R.id.tvWeight);
+        bmi = view.findViewById(R.id.tvBmiValue);
         if (user!=null){
             fetchUserData(user.getEmail());
         }

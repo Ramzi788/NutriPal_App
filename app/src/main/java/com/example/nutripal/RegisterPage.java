@@ -47,7 +47,7 @@ public class RegisterPage extends AppCompatActivity {
 
         button.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterPage.this, EnterDetails.class);
-            String emailInput = String.valueOf(email.getText());
+            String emailInput = String.valueOf(email.getText()).toLowerCase();
             String passInput = String.valueOf(pass.getText());
             String usernameInput = String.valueOf(username.getText());
             if (TextUtils.isEmpty(emailInput)) {
@@ -59,7 +59,7 @@ public class RegisterPage extends AppCompatActivity {
                 return;
             }
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.2.2:8000")
+                    .baseUrl("http://192.168.1.104:8000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
