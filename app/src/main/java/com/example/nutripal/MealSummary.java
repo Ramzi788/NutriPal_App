@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nutripal.Models.FastAPIEndpoint;
@@ -29,6 +31,7 @@ public class MealSummary extends AppCompatActivity {
     private TextView title;
     private ImageView backArrow;
     private FirebaseAuth auth;
+    private ListView mealSummaryList;
 
     private void fetchUserData(String userEmail, String mealType) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -42,11 +45,11 @@ public class MealSummary extends AppCompatActivity {
             public void onResponse(Call<List<MealEaten>> call, Response<List<MealEaten>> response) {
                 if (response.isSuccessful()) {
                     List<MealEaten> meals = response.body();
-                    for (MealEaten meal : meals){
-                        Log.d("MEAL NAME: ", meal.getName());
-                        Log.d("MEAL Calories: ", String.valueOf(meal.getCalories()));
-                    }
-
+                    MealEaten[] displayList = new MealEaten[meals.size()];
+                    for(int i = 0; i < displayList.length; i++)
+                        displayList[i] = meals.get(i);
+                    ArrayAdapter<MealEaten> adapter = new ArrayAdapter<>(MealSummary.this, R.layout.list_item, R.id.displaytext, displayList);
+                    mealSummaryList.setAdapter(adapter);
                 } else
                     Log.d("API NON SUCCESSFUL RESPONSE: ", "FAILURE IN ON RESPONSE BLOCK");
 
@@ -63,6 +66,7 @@ public class MealSummary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_summary);
+        mealSummaryList = findViewById(R.id.mealSummaryList);
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         title = findViewById(R.id.meal_summary_text_food_summary);

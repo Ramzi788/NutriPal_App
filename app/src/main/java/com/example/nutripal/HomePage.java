@@ -92,7 +92,10 @@ public class HomePage extends Fragment implements SensorEventListener {
                 previewTotalSteps = totalSteps;
                 storeLastUpdateDate(currentDate);
         }
-
+            if(user != null){
+                fetchUserData(user.getEmail());
+                fetchNutritionalData();
+            }
     }
 
     private void storeLastUpdateDate(String date) {
@@ -121,7 +124,6 @@ public class HomePage extends Fragment implements SensorEventListener {
             currentCalories.setText(Integer.toString(value + calories));
             caloriesProgressBar.setProgress(value + calories);
             caloriesProgressBar.animate();
-            Toast.makeText(getActivity(),Integer.toString(caloriesProgressBar.getProgress()), Toast.LENGTH_SHORT).show();
         });
     }
     private void fetchNutritionalData() {
@@ -187,11 +189,6 @@ public class HomePage extends Fragment implements SensorEventListener {
         currentCalories = view.findViewById(R.id.currentCalories);
         CalorieGoal = view.findViewById(R.id.CalorieGoal);
         fullName = view.findViewById(R.id.welcomeTextView);
-        if (user!=null){
-            fetchUserData(user.getEmail());
-        }
-        fetchNutritionalData();
-        //Setting the values of the progress bar
         stepsProgressBar.setMax(10000);
         stepsProgressBar.setProgress(0);
 
