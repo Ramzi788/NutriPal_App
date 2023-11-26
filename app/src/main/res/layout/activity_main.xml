@@ -388,14 +388,6 @@
                                 android:text="Your Health Statistics"
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
-                            <TextView
-                                android:id="@+id/seeAll"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="Click to see your summary"
-                                android:textSize="11sp"
-                                />
                         </LinearLayout>
 
 

@@ -36,6 +36,7 @@ public class MealSummary extends AppCompatActivity {
     private FirebaseAuth auth;
     private ListView mealSummaryList;
 
+
     private void fetchUserData(String userEmail, String mealType) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.104:8000")
