@@ -59,7 +59,7 @@ public class RegisterPage extends AppCompatActivity {
                 return;
             }
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("10.0.2.2:8000")
+                    .baseUrl("http://192.168.1.104:8000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -75,7 +75,7 @@ public class RegisterPage extends AppCompatActivity {
                                     if(task.isSuccessful()) {
                                         startActivity(intent); // Start next activity only if sign in is successful
                                     } else {
-                                        // Handle sign in failure
+
                                     }
                                 });
                     }

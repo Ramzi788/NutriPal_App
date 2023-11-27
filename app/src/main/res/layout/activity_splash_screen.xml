@@ -47,7 +47,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
 
         <!-- Title Text -->
         <TextView
@@ -60,7 +63,7 @@
             android:gravity="center"
             android:layout_marginTop="16dp"/>
 
-        <!-- Subtitle Text -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +84,7 @@
             android:padding="10dp"
             android:backgroundTint="#493DD9"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/rectangle">
 
 

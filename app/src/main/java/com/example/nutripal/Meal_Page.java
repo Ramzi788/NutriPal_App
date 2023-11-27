@@ -23,26 +23,13 @@ import java.util.Date;
 
 public class Meal_Page extends Fragment {
     public Meal_Page(){}
-    DayScrollDatePicker datePicker;
+
     String selectedDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diary_page, container, false);
-
-        datePicker = view.findViewById(R.id.dayDatePicker);
-        Calendar calendar = Calendar.getInstance();
-        datePicker.setStartDate(calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR));
-        datePicker.getSelectedDate(new OnDateSelectedListener() {
-           @Override
-           public void onDateSelected(@Nullable Date date) {
-               selectedDate = date.toString();
-               Toast.makeText(getActivity(), selectedDate, Toast.LENGTH_SHORT).show();
-           }
-       });
 
 
         TextView textViewDiary = view.findViewById(R.id.diary_text);

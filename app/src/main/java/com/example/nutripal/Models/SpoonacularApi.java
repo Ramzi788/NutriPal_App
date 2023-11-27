@@ -10,4 +10,6 @@ public interface SpoonacularApi {
     Call<RecipeSearchResponse> getRecipeInfo(@Query("query") String title, @Query("apiKey") String apiKey);
     @GET("recipes/{id}/nutritionWidget.json")
     Call<NutrientSearchResponse> getNutrients(@Path("id") int recipeId, @Query("apiKey") String apiKey);
+    @GET("food/products/upc/{upc}")
+    Call<ProductResponse> getProductByUPC(@Path("upc") String upcCode, @Query("apiKey") String apiKey);
 }

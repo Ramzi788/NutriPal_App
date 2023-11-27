@@ -89,15 +89,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <Spinner
-            android:id="@+id/number_of_servings_spinner"
+        <EditText
+            android:id="@+id/numberOfServings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/number_of_servings"
             android:layout_marginStart="8dp"
             android:paddingTop="5dp"
+            android:text="1"
             android:paddingBottom="5dp"
-            android:paddingLeft="30dp"
+            android:paddingLeft="20dp"
+            android:inputType="number"
             android:paddingRight="30dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/input_rectangle" />
@@ -170,9 +171,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="25dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="16dp">
 
             <!-- The TextView for the first carbohydrate count -->
             <TextView
@@ -197,9 +198,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="25dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="16dp">
 
             <!-- The TextView for the first carbohydrate count -->
             <TextView
@@ -226,7 +227,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="16dp">
 
             <!-- The TextView for the first carbohydrate count -->
             <TextView

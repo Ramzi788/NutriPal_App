@@ -6,9 +6,6 @@ public class Nutrient {
     private String unit;
     private double percentOfDailyNeeds;
 
-    public Nutrient(){
-
-    }
 
     public Nutrient(String name, double amount, String unit, double percentOfDailyNeeds) {
         this.name = name;

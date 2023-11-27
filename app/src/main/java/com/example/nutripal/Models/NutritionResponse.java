@@ -54,4 +54,6 @@ public class NutritionResponse {
     public void setProtein(int protein) {
         this.protein = protein;
     }
+
+
 }

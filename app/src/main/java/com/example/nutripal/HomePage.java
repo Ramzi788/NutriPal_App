@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.nutripal.Models.FastAPIEndpoint;
+import com.example.nutripal.Models.Meal;
 import com.example.nutripal.Models.NutritionResponse;
 import com.example.nutripal.Models.User;
 import com.example.nutripal.Models.UserData;
@@ -31,8 +32,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -72,7 +75,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     private int totalSteps = 0 , previewTotalSteps = 0, maxCalories;
     private TextView stepsText, currentCalories, CalorieGoal, fullName, caloriesRemaining;
     private ProgressBar stepsProgressBar, caloriesProgressBar;
-    private TextView heightText, weightText, bmi;
+    private TextView heightText, weightText, bmi, RecentMeal;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     Calendar calendar = Calendar.getInstance();
     int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -138,6 +141,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
         api.getMeals(userEmail,currentDate).enqueue(new Callback<NutritionResponse>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<NutritionResponse> call, Response<NutritionResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -155,26 +159,27 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
         fetchCurrentCalories(userEmail, currentValue -> {
-            // Now fetch the user data
             api.getUserData(userEmail).enqueue(new Callback<UserData>() {
-                // ... existing onResponse implementation ...
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onResponse(Call<UserData> call, Response<UserData> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         UserData userData = response.body();
                         maxCalories = userData.getCalorieGoal();
-
+                        int current = Integer.parseInt(currentCalories.getText().toString());
                         requireActivity().runOnUiThread(() -> {
                             caloriesProgressBar.setMax(maxCalories);
                             CalorieGoal.setText(String.valueOf(maxCalories));
-                            caloriesRemaining.setText((maxCalories - currentValue) + " Calories Remaining");
+
+                            if (maxCalories <= current)
+                                caloriesRemaining.setText("Calories Remaining: " + 0);
+                            else caloriesRemaining.setText((maxCalories - currentValue) + " Calories Remaining");
                             currentCalories.setText(String.valueOf(currentValue));
                             caloriesProgressBar.setProgress(currentValue);
 
@@ -202,7 +207,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     private void fetchCurrentCalories(String userEmail, Consumer<Integer> onCaloriesFetched) {
         // Example Retrofit setup (replace with your actual endpoint call)
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -212,19 +217,18 @@ public class HomePage extends Fragment implements SensorEventListener {
             @Override
             public void onResponse(Call<NutritionResponse> call, Response<NutritionResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Assuming that NutritionResponse has a method to get the current calories
                     NutritionResponse nutritionResponse = response.body();
                     int currentCalories = nutritionResponse.getCalories();
                     onCaloriesFetched.accept(currentCalories);
+
                 } else {
-                    // Handle the case where the response is not successful
+
                     onCaloriesFetched.accept(0);
                 }
             }
 
             @Override
             public void onFailure(Call<NutritionResponse> call, Throwable t) {
-                // Handle the network error case
                 onCaloriesFetched.accept(0);
             }
         });
@@ -245,8 +249,9 @@ public class HomePage extends Fragment implements SensorEventListener {
         heightText = view.findViewById(R.id.tvHeight);
         weightText = view.findViewById(R.id.tvWeight);
         bmi = view.findViewById(R.id.tvBmiValue);
+        RecentMeal = view.findViewById(R.id.recentMeal);
 
-        //Setting the values of the progress bar
+
         stepsProgressBar.setMax(10000);
         stepsProgressBar.setProgress(0);
 

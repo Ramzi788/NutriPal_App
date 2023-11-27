@@ -64,31 +64,13 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/test2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp">
 
-            <com.harrywhewell.scrolldatepicker.DayScrollDatePicker
-                android:id="@+id/dayDatePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/purple_blue"
-                app:baseColor="@color/purple"
-                app:baseTextColor="@color/light_purple"
-                app:selectedColor="@color/white"
-                app:selectedTextColor="@color/purple_blue"
-                app:showFullDate="false" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="650dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

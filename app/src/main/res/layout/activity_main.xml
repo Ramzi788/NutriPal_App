@@ -290,13 +290,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Recent Scans"
                             android:paddingLeft="20dp"
                             android:paddingTop="25dp"
-                            android:textColor="@color/white"
+                            android:text="Recent Meal"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/white"
                             android:textSize="15dp"
                             android:textStyle="bold" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -311,6 +312,7 @@
                                 android:src="@drawable/rice_bowl" />
 
                             <TextView
+                                android:id="@+id/recentMeal"
                                 android:layout_width="98dp"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="20dp"
@@ -324,17 +326,7 @@
                         </LinearLayout>
 
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:paddingRight="20dp"
-                            android:text="Amount: 100 g"
-                            android:paddingLeft="20dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:textColor="#C5C0FF"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

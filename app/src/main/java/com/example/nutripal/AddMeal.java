@@ -1,6 +1,7 @@
 package com.example.nutripal;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,9 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,12 +29,16 @@ import com.example.nutripal.Models.FastAPIEndpoint;
 import com.example.nutripal.Models.Meal;
 import com.example.nutripal.Models.MealAdapter;
 import com.example.nutripal.Models.MealEaten;
+import com.example.nutripal.Models.Nutrient;
 import com.example.nutripal.Models.NutritionResponse;
+import com.example.nutripal.Models.ProductResponse;
 import com.example.nutripal.Models.Recipe;
 import com.example.nutripal.Models.RecipeSearchResponse;
 import com.example.nutripal.Models.SpoonacularApi;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,14 +59,18 @@ public class AddMeal extends AppCompatActivity {
     private ListView historyList;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private LinearLayout barcode;
+    private static final int BARCODE_SCANNER_REQUEST_CODE = 1;
     private void sendApiRequest(String query) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
+
         SpoonacularApi api = retrofit.create(SpoonacularApi.class);
-        Call<RecipeSearchResponse> call = api.getRecipeInfo(query, "8d88921db42047f780df91d089df065a");
+        Call<RecipeSearchResponse> call = api.getRecipeInfo(query, "1ad3a28a071c4370adc91a6cd4990705");
 
         call.enqueue(new Callback<RecipeSearchResponse>() {
             @Override
@@ -102,7 +114,6 @@ public class AddMeal extends AppCompatActivity {
                 intent.putExtra("ItemId", itemId);
                 startActivity(intent);
                 textView.setText("");
-
             }
         });
     }
@@ -118,7 +129,46 @@ public class AddMeal extends AppCompatActivity {
         if(user != null)
             fetchNutritionalData();
     }
+    private void scanCode(){
+        ScanOptions options = new ScanOptions();
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
+    }
 
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            fetchProductDetails(result.getContents());
+        }
+    });
+    private void fetchProductDetails(String upcCode) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.spoonacular.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        SpoonacularApi api = retrofit.create(SpoonacularApi.class);
+        Call<ProductResponse> call = api.getProductByUPC(upcCode, "1ad3a28a071c4370adc91a6cd4990705");
+
+        call.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ProductResponse productResponse = response.body();
+                    Intent intent = new Intent(AddMeal.this, AddNewMeal.class);
+                    intent.putExtra("GroceryName", productResponse.getTitle());
+                    intent.putExtra("GroceryUPC", upcCode);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                Log.e("API Error", "Response not successful");
+            }
+        });
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +180,13 @@ public class AddMeal extends AppCompatActivity {
         textView = findViewById(R.id.searchEditText);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        barcode = findViewById(R.id.addBarcode);
+        barcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanCode();
+            }
+        });
 
         if(user != null)
             fetchNutritionalData();
@@ -188,7 +245,7 @@ public class AddMeal extends AppCompatActivity {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://192.168.1.104:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
