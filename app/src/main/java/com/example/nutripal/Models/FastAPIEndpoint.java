@@ -33,4 +33,8 @@ public interface FastAPIEndpoint {
     @DELETE("/reset_meals/{user_email}")
     Call<Void> resetMeals(@Path("user_email") String userEmail);
 
+    @POST("/userdata/{user_email}")
+    Call<StepData> setSteps(@Path("user_email") String userEmail, @Body StepData steps);
+    @GET("/userdata/{user_email}")
+    Call<StepData> getSteps(@Path("user_email") String userEmail);
 }

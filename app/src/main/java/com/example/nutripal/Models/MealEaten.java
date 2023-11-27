@@ -1,6 +1,7 @@
 package com.example.nutripal.Models;
 
 public class MealEaten {
+    int id;
     private int dateMonth;
     private String name;
     private String date;  // Assuming the date is in String format
@@ -107,6 +108,14 @@ public class MealEaten {
     @Override
     public String toString() {
         return name + calories;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

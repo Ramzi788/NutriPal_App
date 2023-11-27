@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import com.example.nutripal.Models.FastAPIEndpoint;
 import com.example.nutripal.Models.Meal;
 import com.example.nutripal.Models.NutritionResponse;
+import com.example.nutripal.Models.StepData;
 import com.example.nutripal.Models.User;
 import com.example.nutripal.Models.UserData;
 import com.example.nutripal.R;
@@ -41,6 +42,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.zip.Inflater;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,22 +51,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePage extends Fragment implements SensorEventListener {
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
+        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             totalSteps = (int) event.values[0];
-            int currentSteps = totalSteps-previewTotalSteps;
+            int currentSteps = totalSteps - previewTotalSteps;
             stepsText.setText(String.valueOf(currentSteps));
             stepsProgressBar.setProgress(currentSteps);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String currentDate = sdf.format(new Date());
-            if (currentDate.equals(getLastUpdateDate())) {
+
+            // Decide when to send the data (e.g., every 100 steps)
+            if (currentSteps % 100 == 0) {
+                sendStepDataToServer(currentSteps);
+            }
+
+            if (!currentDate.equals(getLastUpdateDate())) {
                 storeLastUpdateDate(currentDate);
+                // Reset step count for the new day
+                previewTotalSteps = totalSteps;
             }
         }
     }
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -99,6 +109,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         if (user != null) {
             fetchUserData(user.getEmail());
             fetchNutritionalData();
+            fetchStepData(user.getEmail(), currentDate);
         }
 
     }
@@ -109,7 +120,56 @@ public class HomePage extends Fragment implements SensorEventListener {
         editor.putString("LastUpdateDate", date);
         editor.apply();
     }
+    private void sendStepDataToServer(int steps) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://YOUR_SERVER_IP:8000") // Replace with your server IP
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String currentDate = sdf.format(new Date());
+
+        StepData stepData = new StepData(currentDate, steps);
+        Call<StepData> call = api.setSteps(user.getEmail(), stepData);
+
+        call.enqueue(new Callback<StepData>() {
+            @Override
+            public void onResponse(Call<StepData> call, Response<StepData> response) {
+                // Handle success
+            }
+
+            @Override
+            public void onFailure(Call<StepData> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
+    private void fetchStepData(String userEmail, String date) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://YOUR_SERVER_IP:8000") // Replace with your server IP
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
+
+        Call<StepData> call = api.getSteps(userEmail);
+
+        call.enqueue(new Callback<StepData>() {
+            @Override
+            public void onResponse(Call<StepData> call, Response<StepData> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    // Update UI with step data
+                    StepData stepData = response.body();
+                    stepsText.setText(String.valueOf(stepData.getSteps()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StepData> call, Throwable t) {
+                // Handle failure
+            }
+        });
+    }
     private String getLastUpdateDate() {
         SharedPreferences preferences = requireActivity().getSharedPreferences("StepCounter", Context.MODE_PRIVATE);
         return preferences.getString("LastUpdateDate", "");
@@ -135,7 +195,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000")
+                .baseUrl("http://10.169.57.171:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -159,7 +219,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.169.57.171:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -207,7 +267,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     private void fetchCurrentCalories(String userEmail, Consumer<Integer> onCaloriesFetched) {
         // Example Retrofit setup (replace with your actual endpoint call)
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.169.57.171:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);

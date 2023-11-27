@@ -96,7 +96,7 @@ public class AddNewMeal extends AppCompatActivity {
         }
         checkMark = findViewById(R.id.checkMark);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000") // Replace with your server URL
+                .baseUrl("http://10.169.57.171:8000") // Replace with your server URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -208,7 +208,7 @@ public class AddNewMeal extends AppCompatActivity {
         checkMark = findViewById(R.id.checkMark);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000") // Replace with your server URL
+                .baseUrl("http://10.169.57.171:8000") // Replace with your server URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -321,6 +321,12 @@ public class AddNewMeal extends AppCompatActivity {
         } else if (intent.hasExtra("GroceryUPC")) {
             groceryName = intent.getStringExtra("GroceryUPC");
             fetchGroceryDetails(groceryName);
+        }
+        else if (getIntent().hasExtra("MEAL_NAME")) {
+            String mealName = getIntent().getStringExtra("MEAL_NAME");
+            textView.setText(mealName);
+            int recipeID = intent.getIntExtra("ITEM_ID", -1);
+            sendApiRequest(recipeID);
         }
     }
 

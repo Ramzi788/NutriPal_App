@@ -245,7 +245,7 @@ public class AddMeal extends AppCompatActivity {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.169.57.171:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -261,6 +261,13 @@ public class AddMeal extends AppCompatActivity {
                     MealAdapter adapter = new MealAdapter(AddMeal.this, meals);
                     adapter.notifyDataSetChanged();
                     historyList.setAdapter(adapter);
+                    historyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            MealEaten selectedMeal = (MealEaten) parent.getItemAtPosition(position);
+                            openAddNewMealActivity(selectedMeal);
+                        }
+                    });
                 }
                 else{
                     Log.d("ALLMEALS API: ", "Failed, in on Response block");
@@ -273,6 +280,12 @@ public class AddMeal extends AppCompatActivity {
             }
         });
 
+    }
+    private void openAddNewMealActivity(MealEaten meal) {
+        Intent intent = new Intent(AddMeal.this, AddNewMeal.class);
+        intent.putExtra("MEAL_NAME", meal.getName());
+        intent.putExtra("ITEM_ID", meal.getId());
+        startActivity(intent);
     }
 
 }

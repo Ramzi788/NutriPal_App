@@ -39,7 +39,7 @@ public class MealSummary extends AppCompatActivity {
 
     private void fetchUserData(String userEmail, String mealType) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.104:8000")
+                .baseUrl("http://10.169.57.171:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
