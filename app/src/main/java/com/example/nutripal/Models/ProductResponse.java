@@ -8,7 +8,6 @@ public class ProductResponse {
     private Nutrition nutrition;
     private List<GroceryItem> results;
 
-    // Getters and Setters
     public String getTitle() {
         return title;
     }

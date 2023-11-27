@@ -287,8 +287,6 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-
-
     public Object getOriginalId() {
         return originalId;
     }

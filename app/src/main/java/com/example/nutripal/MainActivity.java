@@ -57,7 +57,6 @@ import java.util.concurrent.TimeUnit;
          BottomNavigationView navView = findViewById(R.id.bottom_navigation);
          navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-         // Assuming you want to open the HomePage first
          getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomePage()).commit();
          scheduleResetMealsWork();
      }

@@ -63,7 +63,6 @@ public class HomePage extends Fragment implements SensorEventListener {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String currentDate = sdf.format(new Date());
 
-            // Decide when to send the data (e.g., every 100 steps)
             if (currentSteps % 100 == 0) {
                 sendStepDataToServer(currentSteps);
             }
@@ -102,7 +101,6 @@ public class HomePage extends Fragment implements SensorEventListener {
             String lastUpdateDate = getLastUpdateDate();
 
             if (!currentDate.equals(lastUpdateDate)) {
-                // It's a new day, reset steps and store the new date
                 previewTotalSteps = totalSteps;
                 storeLastUpdateDate(currentDate);
         }
@@ -122,7 +120,7 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
     private void sendStepDataToServer(int steps) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://YOUR_SERVER_IP:8000") // Replace with your server IP
+                .baseUrl("http://172.20.10.4:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -136,18 +134,18 @@ public class HomePage extends Fragment implements SensorEventListener {
         call.enqueue(new Callback<StepData>() {
             @Override
             public void onResponse(Call<StepData> call, Response<StepData> response) {
-                // Handle success
+
             }
 
             @Override
             public void onFailure(Call<StepData> call, Throwable t) {
-                // Handle failure
+
             }
         });
     }
     private void fetchStepData(String userEmail, String date) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://YOUR_SERVER_IP:8000") // Replace with your server IP
+                .baseUrl("http://172.20.10.4:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -158,7 +156,6 @@ public class HomePage extends Fragment implements SensorEventListener {
             @Override
             public void onResponse(Call<StepData> call, Response<StepData> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    // Update UI with step data
                     StepData stepData = response.body();
                     stepsText.setText(String.valueOf(stepData.getSteps()));
                 }
@@ -166,7 +163,7 @@ public class HomePage extends Fragment implements SensorEventListener {
 
             @Override
             public void onFailure(Call<StepData> call, Throwable t) {
-                // Handle failure
+
             }
         });
     }
@@ -195,7 +192,7 @@ public class HomePage extends Fragment implements SensorEventListener {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.169.57.171:8000")
+                .baseUrl("http://172.20.10.4:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -212,14 +209,14 @@ public class HomePage extends Fragment implements SensorEventListener {
 
             @Override
             public void onFailure(Call<NutritionResponse> call, Throwable t) {
-                // Handle failure
+
             }
         });
 
     }
     private void fetchUserData(String userEmail) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.169.57.171:8000")
+                .baseUrl("http://172.20.10.4:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -265,14 +262,12 @@ public class HomePage extends Fragment implements SensorEventListener {
     }
 
     private void fetchCurrentCalories(String userEmail, Consumer<Integer> onCaloriesFetched) {
-        // Example Retrofit setup (replace with your actual endpoint call)
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.169.57.171:8000")
+                .baseUrl("http://172.20.10.4:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
 
-        // Replace getMeals with the actual API call that retrieves the current calories
         api.getMeals(userEmail, currentDate).enqueue(new Callback<NutritionResponse>() {
             @Override
             public void onResponse(Call<NutritionResponse> call, Response<NutritionResponse> response) {

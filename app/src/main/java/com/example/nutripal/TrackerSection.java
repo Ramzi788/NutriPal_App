@@ -115,7 +115,7 @@ public class TrackerSection extends Fragment {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.169.57.171:8000")
+                .baseUrl("http://172.20.10.4:8000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -131,7 +131,7 @@ public class TrackerSection extends Fragment {
 
             @Override
             public void onFailure(Call<NutritionResponse> call, Throwable t) {
-                // Handle failure
+
             }
         });
     }

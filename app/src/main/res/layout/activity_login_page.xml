@@ -8,7 +8,7 @@
     android:gravity="center"
     android:background="#FFFFFF">
 
-    <!-- Login Title -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
 
-    <!-- Login Subtitle -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_marginBottom="32dp"
         android:textColor="#666666" />
 
-    <!-- Email Input Field -->
+
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:padding="16dp"
         android:layout_marginBottom="16dp" />
 
-    <!-- Password Input Field -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTextInputLayout"
         android:layout_width="match_parent"
@@ -106,7 +106,6 @@
             android:layout_marginBottom="16dp"/>
     </LinearLayout>
 
-    <!-- OR Separator -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

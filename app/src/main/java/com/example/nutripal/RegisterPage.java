@@ -59,7 +59,7 @@ public class RegisterPage extends AppCompatActivity {
                 return;
             }
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.169.57.171:8000")
+                    .baseUrl("http://172.20.10.4:8000")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

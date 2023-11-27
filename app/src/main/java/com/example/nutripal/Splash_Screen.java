@@ -34,7 +34,6 @@ public class Splash_Screen extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            // User is signed in, redirect to home screen
             Intent homeIntent = new Intent(Splash_Screen.this, MainActivity.class);
             startActivity(homeIntent);
             finish();
@@ -55,7 +54,7 @@ public class Splash_Screen extends AppCompatActivity {
                 }
             });
 
-            int numberOfImages = 3; // Assuming you have 3 images in the ViewFlipper
+            int numberOfImages = 3;
             dots = new ImageView[numberOfImages];
 
             for (int i = 0; i < numberOfImages; i++) {
@@ -69,12 +68,10 @@ public class Splash_Screen extends AppCompatActivity {
                 dotsLayout.addView(dots[i], params);
             }
 
-            dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot)); // First dot is active
+            dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
 
-            // Set a listener to update the dots as the ViewFlipper changes views
             viewFlipper.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
                 public void onAnimationStart(Animation animation) {
-                    // When a new view starts to come in, update the dot
                     int newActiveIndex = (viewFlipper.getDisplayedChild());
                     updateDots(newActiveIndex);
                 }

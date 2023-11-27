@@ -11,7 +11,6 @@
         android:gravity="center_vertical"
         >
 
-        <!-- Header with user greeting -->
         <LinearLayout
             android:id="@+id/header1"
             android:layout_width="match_parent"
@@ -57,7 +56,7 @@
             >
 
 
-            <!-- User greeting -->
+
             <TextView
                 android:id="@+id/welcomeTextView"
                 android:layout_width="331dp"
@@ -79,8 +78,7 @@
                 android:textStyle="bold" />
 
 
-            <!-- Settings and search icons -->
-            <!-- ... -->
+
         </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
@@ -118,7 +116,7 @@
                         android:paddingTop="20dp"
                         >
 
-                        <!-- Column for "Your Goal" -->
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -407,28 +405,27 @@
                             android:layout_height="20dp"
                             android:orientation="horizontal"
                             android:gravity="center_vertical">
-                            <!-- UnderWeight segment -->
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="10dp"
                                 android:layout_weight="1"
                                 android:background="@color/color_underweight" />
 
-                            <!-- Normal segment -->
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="10dp"
                                 android:layout_weight="1"
                                 android:background="@color/color_normal" />
 
-                            <!-- OverWeight segment -->
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="10dp"
                                 android:layout_weight="1"
                                 android:background="@color/color_overweight" />
 
-                            <!-- Obese segment -->
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="10dp"
@@ -513,14 +510,14 @@
                                     android:textSize="13sp"
                                     android:layout_marginStart="4dp" />
 
-                                <!-- Color Bar for "Normal" -->
+
                                 <View
                                     android:layout_width="2dp"
                                     android:layout_height="20dp"
                                     android:background="@color/color_normal"
                                     android:layout_marginStart="10dp" />
 
-                                <!-- Text "Normal" -->
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -529,14 +526,12 @@
                                     android:textSize="13sp"
                                     android:layout_marginStart="4dp" />
 
-                                <!-- Color Bar for "Overweight" -->
                                 <View
                                     android:layout_width="2dp"
                                     android:layout_height="20dp"
                                     android:background="@color/color_overweight"
                                     android:layout_marginStart="10dp" />
 
-                                <!-- Text "Overweight" -->
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -545,14 +540,12 @@
                                     android:textSize="13sp"
                                     android:layout_marginStart="4dp" />
 
-                                <!-- Color Bar for "Obese" -->
                                 <View
                                     android:layout_width="2dp"
                                     android:layout_height="20dp"
                                     android:background="@color/color_obese"
                                     android:layout_marginStart="10dp" />
 
-                                <!-- Text "Obese" -->
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

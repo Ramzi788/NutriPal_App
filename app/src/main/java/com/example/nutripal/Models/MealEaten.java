@@ -4,7 +4,7 @@ public class MealEaten {
     int id;
     private int dateMonth;
     private String name;
-    private String date;  // Assuming the date is in String format
+    private String date;
     private int carbs;
     private int calories;
     private int fiber;
@@ -104,7 +104,6 @@ public class MealEaten {
         this.fat = fat;
     }
 
-    // You might also want to override toString() for easy debugging
     @Override
     public String toString() {
         return name + calories;

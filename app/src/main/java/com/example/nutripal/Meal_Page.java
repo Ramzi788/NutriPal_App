@@ -35,7 +35,6 @@ public class Meal_Page extends Fragment {
         TextView textViewDiary = view.findViewById(R.id.diary_text);
         TextView textViewTrackers = view.findViewById(R.id.trackers_text);
 
-        // Initialize the diary section fragment
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.footer, new DiarySection())
                 .commit();

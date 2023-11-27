@@ -23,7 +23,6 @@ public class ResetMealsWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        // Perform the network request here
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.104:8000") // Your API base URL
                 .addConverterFactory(GsonConverterFactory.create())

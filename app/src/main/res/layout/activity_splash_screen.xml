@@ -8,7 +8,7 @@
     android:background="@color/white"
     >
 
-    <!-- ViewPager2 for swiping through pages -->
+
     <ViewFlipper
         android:id="@+id/viewFlipper"
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:src="@drawable/splash1"/>
     </ViewFlipper>
 
-    <!-- Dots indicator layout -->
+
     <LinearLayout
         android:id="@+id/dotsLayout"
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         android:paddingRight="20dp"
         >
 
-        <!-- Title Text -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
-        <!-- Sign up Button -->
+
         <LinearLayout
             android:id="@+id/registerButton"
             xmlns:android="http://schemas.android.com/apk/res/android"

@@ -6,7 +6,7 @@
     android:elevation="4dp"
     android:background="@android:color/white">
 
-    <!-- Water Icon -->
+
     <ImageView
         android:id="@+id/water_icon"
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
-    <!-- Slider Title -->
+
     <TextView
         android:id="@+id/tv_slider_title"
         android:layout_width="wrap_content"
@@ -25,9 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
-    <!-- Slider for Water Intake -->
 
-    <!-- Quantity Indicator -->
 
     <SeekBar
         android:id="@+id/sb_water_intake"
@@ -52,7 +50,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
-    <!-- Submit Button -->
+
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"

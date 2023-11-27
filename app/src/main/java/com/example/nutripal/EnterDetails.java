@@ -40,7 +40,7 @@ public class EnterDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_details);
-        EditText editText = findViewById(R.id.dob_details_Screen); // Replace with your actual ID
+        EditText editText = findViewById(R.id.dob_details_Screen);
         editText.setFocusable(false);
         continueButton = findViewById(R.id.continueButton);
         calorieGoal = findViewById(R.id.calorieGoal);
@@ -63,7 +63,7 @@ public class EnterDetails extends AppCompatActivity {
                     int userHeight = Integer.parseInt(heightInput);
                     int userWeight = Integer.parseInt(weightInput);
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://10.169.57.171:8000") // Replace with your server URL
+                            .baseUrl("http://172.20.10.4:8000")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -73,17 +73,17 @@ public class EnterDetails extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<UserData> call, Response<UserData> response) {
                             if (response.isSuccessful()) {
-                                // Start MainActivity here after successful response
+
                                 Intent intent = new Intent(EnterDetails.this, MainActivity.class);
                                 startActivity(intent);
                             } else {
-                                // Handle failure case
+
                             }
                         }
 
                         @Override
                         public void onFailure(Call<UserData> call, Throwable t) {
-                            // Handle network error
+
                         }
                     });
                 }
@@ -114,7 +114,7 @@ public class EnterDetails extends AppCompatActivity {
                     }
 
                     private void updateLabel() {
-                        String myFormat = "dd/MM/yyyy"; // Your desired format
+                        String myFormat = "dd/MM/yyyy";
                         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
                         editText.setText(sdf.format(myCalendar.getTime()));
                     }

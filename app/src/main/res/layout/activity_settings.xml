@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <!-- Settings Header -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
     </LinearLayout>
 
 
-    <!-- Settings List Items -->
+
 
     <LinearLayout
         android:id="@+id/profile"
@@ -52,79 +52,14 @@
             android:text="Profile"
             android:gravity="center_vertical" />
     </LinearLayout>
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:background="#E0E0E0" />-->
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/notifications"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:padding="16dp">-->
-    <!--        <ImageView-->
-    <!--            android:layout_width="24dp"-->
-    <!--            android:layout_height="24dp"-->
-    <!--            android:src="@drawable/home_icon" />-->
 
-    <!--        <TextView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="32dp"-->
-    <!--            android:text="Notifications"-->
-    <!--            android:gravity="center_vertical" />-->
-    <!--    </LinearLayout>-->
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:background="#E0E0E0" />-->
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:padding="16dp">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="24dp"-->
-    <!--            android:layout_height="24dp"-->
-    <!--            android:src="@drawable/home_icon" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="32dp"-->
-    <!--            android:text="Notifications"-->
-    <!--            android:gravity="center_vertical" />-->
-    <!--    </LinearLayout>-->
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:background="#E0E0E0" />-->
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:padding="16dp">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="24dp"-->
-    <!--            android:layout_height="24dp"-->
-    <!--            android:src="@drawable/home_icon" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="32dp"-->
-    <!--            android:text="Notifications"-->
-    <!--            android:gravity="center_vertical" />-->
-    <!--    </LinearLayout>-->
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#E0E0E0" />
 
-    <!-- Logout Item -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

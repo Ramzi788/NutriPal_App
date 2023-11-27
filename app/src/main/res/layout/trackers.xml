@@ -13,7 +13,6 @@
     android:layout_margin="20dp"
     android:padding="5dp">
 
-    <!-- Total Carbs Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +48,7 @@
             android:progressTint="@color/green"/>
     </LinearLayout>
 
-    <!-- Total Protein Section -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,7 +83,7 @@
             android:progressTint="@color/red"/>
     </LinearLayout>
 
-    <!-- Total Fat Section -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -119,7 +118,6 @@
             android:progressTint="@color/purple"/>
     </LinearLayout>
 
-    <!-- Total Fiber Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -155,7 +153,6 @@
             android:progressTint="@color/yellow"/>
     </LinearLayout>
 
-    <!-- Water Consumed Section -->
     <LinearLayout
         android:id="@+id/waterConsumed"
         android:layout_width="match_parent"

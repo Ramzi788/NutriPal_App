@@ -35,7 +35,7 @@ public class NutrientSearchResponse {
                 return nutrient;
             }
         }
-        return null; // Or handle the case where the nutrient is not found
+        return null;
     }
     public void setNutrients(List<Nutrient> nutrients) {
         this.nutrients = nutrients;

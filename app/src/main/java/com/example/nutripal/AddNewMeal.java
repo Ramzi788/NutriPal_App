@@ -96,7 +96,7 @@ public class AddNewMeal extends AppCompatActivity {
         }
         checkMark = findViewById(R.id.checkMark);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.169.57.171:8000") // Replace with your server URL
+                .baseUrl("http://172.20.10.4:8000") // Replace with your server URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
@@ -208,7 +208,7 @@ public class AddNewMeal extends AppCompatActivity {
         checkMark = findViewById(R.id.checkMark);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.169.57.171:8000") // Replace with your server URL
+                .baseUrl("http://172.20.10.4:8000") // Replace with your server URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);
