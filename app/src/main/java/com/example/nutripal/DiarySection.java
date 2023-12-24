@@ -102,7 +102,7 @@ public class DiarySection extends Fragment {
     }
     private void fetchUserData(String userEmail, String mealType, TextView caloriesTextView) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.4:8000")
+                .baseUrl(getResources().getString(R.string.IP))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);

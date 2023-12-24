@@ -115,7 +115,7 @@ public class TrackerSection extends Fragment {
         assert user != null;
         String userEmail = user.getEmail();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://172.20.10.4:8000")
+                .baseUrl(getResources().getString(R.string.IP))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         FastAPIEndpoint api = retrofit.create(FastAPIEndpoint.class);

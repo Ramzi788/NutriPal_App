@@ -4,6 +4,7 @@
     <string name="height_value"><font color='#A6A6A6'>Height:</font></string>
     <string name="weight_value"><font color='#A6A6A6'>Weight:</font></string>
     <string name="api_key">8d88921db42047f780df91d089df065a</string>
+    <string name="IP">http://10.0.2.2:8000</string>
     <string-array name="serving_sizes">
         <item>1</item>
         <item>2</item>
