@@ -22,4 +22,5 @@ Steps:
 - Once loaded, you have to first change the localURL String variable in the strings.xml file, to connect to the fastAPI. If you are running on an emulator: http://10.0.2.2:8000. If running on real device: http://LOCAL_IP:8000
 
 # Remarks
-- Please note that this app is not 100% completed as there are some features that have been not completed as of yet. 
+- Please note that this app is not 100% completed as there are some features that have been not completed as of yet.
+- Also note that some areas of the app need improvements in terms of final touches. Images, placeholders are required to be updated and changed.
